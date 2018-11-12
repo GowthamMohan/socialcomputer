@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ExecuteTaskActivity">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="219dp"
+        android:layout_height="145dp"
+        android:layout_marginBottom="348dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="83dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task description"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="58dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start/ Stop task"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="383dp" />
+</android.support.constraint.ConstraintLayout>

@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_progress -> {
-
+                val intent = Intent(applicationContext, StatisticsActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 

@@ -24,7 +24,7 @@
         tools:layout_editor_absoluteY="58dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_start_stop_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start/ Stop task"

@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="saarland.dfki.socialanxietytrainer">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.microsoft.band.service.access.BIND_BAND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +31,12 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".StatisticsActivity"></activity>
+        <activity android:name=".StatisticsActivity" />
+        <activity
+            android:name=".MicrosoftBandActivity"
+            android:label="@string/title_activity_microsoft_band"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BandConnectAcitivity"></activity>
     </application>
 
 </manifest>

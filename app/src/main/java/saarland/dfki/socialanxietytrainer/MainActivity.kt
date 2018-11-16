@@ -73,6 +73,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_settings -> {
 
             }
+            //open Activity to connect Microsoft Band
+            R.id.nav_connect -> {
+                val intent = Intent(applicationContext, BandConnectAcitivity::class.java)
+                startActivity(intent)
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

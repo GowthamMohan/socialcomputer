@@ -22,5 +22,14 @@
             android:layout_height="wrap_content"
             android:onClick="connect"
             android:text="connect" />
+
+        <Button
+            android:id="@+id/disconnectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="disconnect"
+            android:text="disconnect"
+            tools:text="disconnect" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

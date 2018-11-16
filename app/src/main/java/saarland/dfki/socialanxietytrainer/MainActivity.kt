@@ -10,10 +10,15 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
+import android.view.KeyEvent
 import kotlinx.android.synthetic.main.content_main.*
+import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
+import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,4 +88,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
+
+
+
 }

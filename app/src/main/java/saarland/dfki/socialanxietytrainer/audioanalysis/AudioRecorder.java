@@ -7,15 +7,18 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /*
  * Thread to manage live recording/playback of voice input from the device's microphone.
  */
-public class AudioRecorder extends Thread {
+public class AudioRecorder extends Thread implements IAudioRecorder {
     private AtomicBoolean stopped = new AtomicBoolean(false);
     private AudioTrack track = null;
 
@@ -137,12 +140,19 @@ public class AudioRecorder extends Thread {
     /**
      * Called from outside of the thread in order to stop the recording/playback loop
      */
+    @Override
     public void close() {
         stopped.set(true);
     }
 
+    @Override
     public AudioTrack getTrack() {
         return track;
     }
 
+    @NotNull
+    @Override
+    public MediaPlayer getMediaPlayer() {
+        return null;
+    }
 }

@@ -40,7 +40,7 @@ public class SimulationThread extends Thread {
                tmp = (tmp * 10) + 110; //set to interval 100 - 120 bpm, very anxious
            }
             simulator.setHeartrate(tmp);
-            Log.d("SimThread",Integer.toString((int)tmp));
+            Log.d("SimThread",Integer.toString((int)tmp) + "bpm");
         }
     }
 

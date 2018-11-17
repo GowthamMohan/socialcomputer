@@ -19,56 +19,68 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     private BandClient client = null;
     private HeartRateSimulator sim;
+    private MainActivity mainActivity;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_band_connect_acitivity);
-        sim = new HeartRateSimulator();
+        sim =MainActivity.Companion.getSimulator();
+
 
     }
 
 
 
     public void connect(View v) {
+        sim.setConnected(true);
         sim.simulateHeartRate(SimulationType.CALM);
+
 
 
     }
     public void disconnect(View v) {
         sim.stopSimulation();
+        sim.setConnected(false);
 
 
     }
 
-    /* method for developing only!
+        /* onKeyUp method is for developing only!  Allows you to manually change the heartrate:
             press I on keybord to simulate a calm heartrate
             press O on keybord to simulate a slightly increased heartrate (a bit nervous or excited)
             press P on keybord to simulate a very high heartrate (fear)
-
-            keybord input only works when in BandConnectActivity, so mode change has to be made here. (will be improved so that it works in the whole APP (TODO)
-            If keybord input does not work, click on the Emulator and try again
-
+            If input does not work, click on the emulator and try again
+            IMPORTANT: Only works in activities that have this method! If you need to manipulate the heartrate in another activity,
+            simply copy & paste this method and add it to that activity
 
     * */
+        @Override
+        public boolean onKeyUp(int keyCode, KeyEvent event) {
+           HeartRateSimulator simulator = MainActivity.Companion.getSimulator();
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_I :
+                    simulator.simulateHeartRate(SimulationType.CALM);
+                    return true;
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_I:
-                sim.simulateHeartRate(SimulationType.CALM);
-                return true;
             case KeyEvent.KEYCODE_O:
-                sim.simulateHeartRate(SimulationType.EXCITED);
-                return true;
-            case KeyEvent.KEYCODE_P:
-                sim.simulateHeartRate(SimulationType.FRIGHTENED);
-                return true;
-            default:
-                return super.onKeyUp(keyCode, event);
+                    simulator.simulateHeartRate(SimulationType.EXCITED);
+                    return true;
+
+                case KeyEvent.KEYCODE_P :
+                    simulator.simulateHeartRate(SimulationType.FRIGHTENED);
+                    return true;
+                default:
+                    return super.onKeyUp(keyCode, event);
+            }
         }
-    }
+
+
+
 
 
 }

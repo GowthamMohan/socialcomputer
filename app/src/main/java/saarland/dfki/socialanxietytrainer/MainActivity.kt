@@ -18,7 +18,10 @@ import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
+    //static simulator object to be able to access it from all actvities
+    companion object {
+        val simulator = HeartRateSimulator()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
     }
 
     override fun onBackPressed() {
@@ -80,17 +84,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             //open Activity to connect Microsoft Band
             R.id.nav_connect -> {
-                val intent = Intent(applicationContext, BandConnectAcitivity::class.java)
+                val intent = Intent(
+                        applicationContext,
+                        BandConnectAcitivity::class.java
+                )
                 startActivity(intent)
+
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
-
-
-
 
 
 }

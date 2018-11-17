@@ -64,16 +64,22 @@ public class AudioRecorder extends Thread {
                     AudioTrack.MODE_STREAM);
 
             recorder.startRecording();
-            track.play();
             /*
              * Loops until something outside of this thread stops it.
              * Reads the data from the recorder and writes it to the audio track for playback.
              */
-            while (!stopped.get()) {
-//                Log.i("Map", "Writing new data to buffer");
+            while (true) {
+                if (stopped.get()) {
+                    recorder.stop();
+                }
+
                 short[] buffer = buffers[ix++ % buffers.length];
-                N = recorder.read(buffer,0,buffer.length);
+                N = recorder.read(buffer,0, buffer.length);
+                System.out.println("N: " + N);
                 track.write(buffer, 0, buffer.length);
+                if (N <= 0) {
+                    break;
+                }
             }
         } catch(Throwable x) {
             Log.w("Audio", "Error reading voice audio", x);
@@ -82,10 +88,12 @@ public class AudioRecorder extends Thread {
          * Frees the thread's resources after the loop completes so that it can be run again
          */
         finally {
-            recorder.stop();
+//            recorder.stop();
             recorder.release();
-            track.stop();
-            track.release();
+//            track.stop();
+//            track.pause();
+//            track.flush();
+//            track.release();
         }
     }
 

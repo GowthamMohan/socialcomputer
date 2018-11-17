@@ -24,11 +24,18 @@ class ExecuteTaskActivity : AppCompatActivity() {
             if (taskActive) {
                 stopAudioRecording()
                 button_start_stop_task.setBackgroundColor(Color.parseColor("#738b28"))
+                button_play_recording.isEnabled = true
             } else {
                 startAudioRecording()
                 button_start_stop_task.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                button_play_recording.isEnabled = false
             }
             taskActive = !taskActive
+        }
+
+        button_play_recording.setOnClickListener { view ->
+            assert(audioTrack != null)
+            audioTrack!!.play()
         }
     }
 

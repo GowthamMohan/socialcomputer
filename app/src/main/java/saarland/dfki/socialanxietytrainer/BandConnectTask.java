@@ -2,6 +2,7 @@ package saarland.dfki.socialanxietytrainer;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -32,9 +33,11 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
             try {
                 ConnectionState state = client.connect().await();
                 if (state == ConnectionState.CONNECTED) {
-                    // do work on success
+                    Toast.makeText(activity.getApplicationContext(),"Connected",Toast.LENGTH_SHORT).show();
+                    activity.setConnected(true);
                 } else {
-                    // do work on failure
+                    Toast.makeText(activity.getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                    activity.setConnected(false);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -43,6 +46,8 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
             }
         }
         else {
+            activity.setConnected(false);
+            Toast.makeText(activity.getApplicationContext(),"No microsoft band found.",Toast.LENGTH_SHORT).show();
             Log.e("BandConnectTask","microsoft band not found");
         }
         return null;

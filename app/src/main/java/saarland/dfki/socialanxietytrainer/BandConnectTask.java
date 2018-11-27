@@ -28,15 +28,31 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
-        client = BandClientManager.getInstance().create(activity.getBaseContext(), devices[0]);
+        if(devices.length != 0 ) {
+
+            client = BandClientManager.getInstance().create(activity.getBaseContext(), devices[0]);
+        }
+
         if(client != null ) {
             try {
                 ConnectionState state = client.connect().await();
                 if (state == ConnectionState.CONNECTED) {
-                    Toast.makeText(activity.getApplicationContext(),"Connected",Toast.LENGTH_SHORT).show();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity.getApplicationContext(),"Connected",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     activity.setConnected(true);
                 } else {
-                    Toast.makeText(activity.getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity.getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     activity.setConnected(false);
                 }
             } catch (InterruptedException e) {
@@ -45,9 +61,16 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
             }
         }
+
         else {
             activity.setConnected(false);
-            Toast.makeText(activity.getApplicationContext(),"No microsoft band found.",Toast.LENGTH_SHORT).show();
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity.getApplicationContext(),"No microsoft band found.",Toast.LENGTH_SHORT).show();
+                }
+            });
+
             Log.e("BandConnectTask","microsoft band not found");
         }
         return null;

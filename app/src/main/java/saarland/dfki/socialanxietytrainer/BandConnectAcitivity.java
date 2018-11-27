@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.view.KeyEvent;
-
+import android.widget.Toast;
 
 
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator;
@@ -41,7 +41,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
 
-    private boolean simulate = false; //<----change here if you need simulation!!!
+    private boolean simulate = false; //<----change here!!!
 
 
 
@@ -95,21 +95,36 @@ public class BandConnectAcitivity extends AppCompatActivity {
             BandConnectTask task = new BandConnectTask(client, this);
             task.execute();
             askForPermission();
+
         }
     }
 
     public void disconnectMicrosoftBand(View v) {
-        if(connected) { {
+        if(connected) {
             try {
                 client.getSensorManager().unregisterHeartRateEventListener(heartRateEventListener);
                 connected = false;
                 client = null;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"Disconnected.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             catch(BandIOException ex) {
             }
         }
+        else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"No microsoft band to disconnect.",Toast.LENGTH_SHORT).show();
+                    }
+                });
         }
     }
+
 
     public void setConnected(boolean b) {
         connected = b;

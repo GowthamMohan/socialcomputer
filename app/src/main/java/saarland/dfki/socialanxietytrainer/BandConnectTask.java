@@ -18,8 +18,7 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
     private BandClient client;
     private BandConnectAcitivity activity;
 
-    public BandConnectTask(BandClient client, BandConnectAcitivity activity ) {
-        this.client = client;
+    public BandConnectTask(BandConnectAcitivity activity ) {
         this.activity = activity;
     }
 
@@ -31,6 +30,7 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
         if(devices.length != 0 ) {
 
             client = BandClientManager.getInstance().create(activity.getBaseContext(), devices[0]);
+            activity.setClient(client);
         }
 
         if(client != null ) {

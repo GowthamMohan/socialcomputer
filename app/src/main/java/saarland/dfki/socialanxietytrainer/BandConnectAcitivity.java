@@ -3,6 +3,7 @@ package saarland.dfki.socialanxietytrainer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -59,7 +60,9 @@ public class BandConnectAcitivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 heartrate = event.getHeartRate();
+                                Log.d("BandConnectActivity",heartrate + "bpm");
                             }
+
                         };
                     }
                 };
@@ -92,39 +95,58 @@ public class BandConnectAcitivity extends AppCompatActivity {
     //to use if real watch is connected
     public void connectMicrosotBand(View v) {
         if(!connected) {
-            BandConnectTask task = new BandConnectTask(client, this);
+            BandConnectTask task = new BandConnectTask(this);
             task.execute();
             askForPermission();
+
+        }
+        else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Already connected.", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }
 
     public void disconnectMicrosoftBand(View v) {
-        if(connected) {
-            try {
-                client.getSensorManager().unregisterHeartRateEventListener(heartRateEventListener);
+        if (connected && client != null) {
+            try { client.disconnect().await();
+                if(heartRateEventListener != null) {
+                    client.getSensorManager().unregisterHeartRateEventListener(heartRateEventListener);
+                }
+
                 connected = false;
                 client = null;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(),"Disconnected.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Disconnected.", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-            catch(BandIOException ex) {
-            }
-        }
-        else {
+            } catch (Exception e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(),"No microsoft band to disconnect.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Disconnection failed. Try again.", Toast.LENGTH_SHORT).show();
                     }
                 });
+                Log.e("BandConnectionTask",e.getMessage());
+            }
+
+
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Nothing to disconnect", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     }
-
 
     public void setConnected(boolean b) {
         connected = b;
@@ -154,6 +176,9 @@ public class BandConnectAcitivity extends AppCompatActivity {
         }
     }
 
+    public void setClient(BandClient client){
+        this.client = client;
+    }
 
 
 

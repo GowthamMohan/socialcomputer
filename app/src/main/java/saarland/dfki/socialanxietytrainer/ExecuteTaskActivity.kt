@@ -1,102 +1,37 @@
 package saarland.dfki.socialanxietytrainer
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.media.AudioTrack
-import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import android.support.v7.app.AppCompatActivity
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import com.jjoe64.graphview.GraphView
 import com.thalmic.myo.Hub
 import com.thalmic.myo.Myo
 import hcm.ssj.core.ExceptionHandler
-import hcm.ssj.core.Pipeline
 import hcm.ssj.myo.Vibrate2Command
 import kotlinx.android.synthetic.main.activity_execute_task.*
-import saarland.dfki.socialanxietytrainer.audioanalysis.AudioRecorder2
 import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLine
 import saarland.dfki.socialanxietytrainer.audioanalysis.PipelineRunner
 
-//IPipeLine
 class ExecuteTaskActivity : IPipeLine, ExceptionHandler, AppCompatActivity() {
 
-    private var taskActive = false
-//    private var audioRecorder: AudioRecorder2? = null
-//    private var audioTrack: AudioTrack? = null
-//    private var mediaPlayer: MediaPlayer? = null
-
     private var _pipe: PipelineRunner? = null
-    private var _ssj_version: String? = null
     private var _error_msg: String? = null
-    private val REQUEST_DANGEROUS_PERMISSIONS = 108
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_execute_task)
 
-//        audioRecorder = AudioRecorder2(applicationContext)
-
         button_start_stop_task.setOnClickListener { view ->
-//            if (taskActive) {
-//                stopAudioRecording()
-//                button_start_stop_task.setBackgroundColor(Color.parseColor("#738b28"))
-//                button_play_recording.isEnabled = true
-//            } else {
-//                startAudioRecording()
-//                button_start_stop_task.setBackgroundColor(Color.parseColor("#FFFFFF"))
-//                button_play_recording.isEnabled = false
-//            }
-//            taskActive = !taskActive
             onStartPressed(view)
         }
 
         button_demo.setOnClickListener { view ->
             onDemoPressed(view)
         }
-//
-//        button_play_recording.setOnClickListener { view ->
-//            assert(audioTrack != null)
-//            mediaPlayer!!.start()
-//        }
-
-        // SSJ setup
-//        _ssj_version = "SSJ v" + Pipeline.getInstance().getVersion()
-        _ssj_version = "SSJ v?"
-
-        val text = findViewById(R.id.txt_ssj) as TextView
-        text.setText(_ssj_version)
-
-        // Permissions setup
-        checkPermissions()
     }
-
-//    fun startAudioRecording() {
-//        audioRecorder!!.start()
-//    }
-//
-//    fun stopAudioRecording() {
-//        Log.i("ExecuteTaskActivity", "stopAudioRecording")
-//        audioRecorder!!.close()
-//        audioRecorder!!.join()
-//        mediaPlayer = audioRecorder!!.getMediaPlayer()
-//        Log.i("ExecuteTaskActivity", "Wrote track")
-//    }
-
-
-
-
-
 
     override fun onDestroy() {
         if (_pipe != null && _pipe!!.isRunning())
@@ -121,12 +56,8 @@ class ExecuteTaskActivity : IPipeLine, ExceptionHandler, AppCompatActivity() {
 
         val am = getApplicationContext().getAssets()
         getAssets()
-        val text = findViewById(R.id.txt_ssj) as TextView
 
         if (_pipe == null || !_pipe!!.isRunning()) {
-            text.setText(_ssj_version!! + " - starting")
-
-
             val graph = findViewById(R.id.graph) as GraphView
             graph.removeAllSeries()
             //            graph.getSecondScale().removeAllSeries(); //not implemented in GraphView 4.0.1
@@ -140,7 +71,6 @@ class ExecuteTaskActivity : IPipeLine, ExceptionHandler, AppCompatActivity() {
             _pipe!!.setExceptionHandler(this)
             _pipe!!.start()
         } else {
-            text.setText(_ssj_version!! + " - stopping")
             _pipe!!.terminate()
         }
     }
@@ -148,20 +78,13 @@ class ExecuteTaskActivity : IPipeLine, ExceptionHandler, AppCompatActivity() {
     override fun notifyPipeState(running: Boolean) {
         this.runOnUiThread(Runnable {
             val btn = findViewById(R.id.button_start_stop_task) as Button
-            val text = findViewById(R.id.txt_ssj) as TextView
 
             if (running) {
-                text.setText(_ssj_version!! + " - running")
                 btn.setText(R.string.stop)
                 btn.setEnabled(true)
                 btn.setAlpha(1.0f)
             } else {
-                text.setText(_ssj_version!! + " - not running")
-                if (_error_msg != null) {
-                    val str = text.text.toString() + "\nERROR: " + _error_msg
-                    text.setText(str)
-                }
-
+                assert(_error_msg != null)
                 btn.setText(R.string.start)
                 btn.setEnabled(true)
                 btn.setAlpha(1.0f)
@@ -233,21 +156,10 @@ class ExecuteTaskActivity : IPipeLine, ExceptionHandler, AppCompatActivity() {
         _pipe!!.terminate() //attempt to shut down framework
 
         this.runOnUiThread(
-                Runnable { Toast.makeText(getApplicationContext(), "Exception in Pipeline\n$msg", Toast.LENGTH_LONG).show() })
+                Runnable {
+                    Toast.makeText(getApplicationContext(),"Exception in Pipeline\n$msg", Toast.LENGTH_LONG).show()
+                })
 
-    }
-
-    private fun checkPermissions() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            //dangerous permissions
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, Manifest.permission.BODY_SENSORS) !== PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !== PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) !== PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !== PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BODY_SENSORS, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_DANGEROUS_PERMISSIONS)
-            }
-        }
     }
 
 }

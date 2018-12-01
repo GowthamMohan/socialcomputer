@@ -1,7 +1,10 @@
 package saarland.dfki.socialanxietytrainer
 
+import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -10,10 +13,19 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private val REQUEST_PERMISSIONS = 108
+    private val permissions = arrayOf(Manifest.permission.BODY_SENSORS,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +43,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        // Permissions setup
+        checkPermissions()
     }
 
     override fun onBackPressed() {
@@ -77,5 +92,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun checkPermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (permissions.any {
+                        p -> ContextCompat.checkSelfPermission(this, p) !== PackageManager.PERMISSION_GRANTED }) {
+                ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS)
+            }
+        }
     }
 }

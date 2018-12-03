@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.widget.Toast;
-
+import android.widget.TextView;
 
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator;
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType;
@@ -27,23 +27,19 @@ import com.microsoft.band.sensors.BandHeartRateEvent;
 import com.microsoft.band.sensors.BandHeartRateEventListener;
 import com.microsoft.band.sensors.HeartRateConsentListener;
 
+//Sources:
+//https://www.sitepoint.com/getting-started-with-microsoft-band-sdk/
+//Microsoft Band SDK and Samples for Android, BandHeartRateAppActivity.java
 
 public class BandConnectAcitivity extends AppCompatActivity {
 
 
-
     private BandClient client = null;
-
     private HeartRateSimulator sim;
-    private MainActivity mainActivity;
-
     private boolean connected;
-
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
-
-    private boolean simulate = false; //<----change here!!!
-
+    private boolean simulate = true; //<----change here!!!
 
 
     @Override
@@ -51,40 +47,70 @@ public class BandConnectAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_band_connect_acitivity);
         sim =MainActivity.Companion.getSimulator();
-
-        heartRateEventListener = new
-                BandHeartRateEventListener() {
-                    @Override
-                    public void onBandHeartRateChanged(final BandHeartRateEvent event) {
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                heartrate = event.getHeartRate();
-                                Log.d("BandConnectActivity",heartrate + "bpm");
-                            }
-
-                        };
-                    }
-                };
+        heartRateEventListener = new BandHeartRateEventListener() {
+            @Override
+            public void onBandHeartRateChanged(final BandHeartRateEvent event) {
+                    if (event != null) {
+                    heartrate = event.getHeartRate();
+                    Log.d("BandConnectActivity",heartrate + "bpm");
+                }
+            }
+        };
     }
 
-
-    //to use for simulation
     public void connect(View v) {
+        //simulation
         if(simulate) {
-            sim.setConnected(true);
-            sim.simulateHeartRate(SimulationType.CALM);
+            if(!connected) {
+                sim.simulateHeartRate(SimulationType.CALM);
+                connected = true;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Already connected.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
         }
+        //real microsoft band
         else {
             connectMicrosotBand(v);
         }
 
     }
     public void disconnect(View v) {
+        //simulation
         if(simulate) {
-            sim.stopSimulation();
-            sim.setConnected(false);
+            if(connected) {
+                sim.stopSimulation();
+                connected = false;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Disconnected.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Nothing to disconnect.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
         }
+        //real microsoft band
         else {
             disconnectMicrosoftBand(v);
         }
@@ -92,13 +118,11 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     }
 
-    //to use if real watch is connected
+
     public void connectMicrosotBand(View v) {
         if(!connected) {
             BandConnectTask task = new BandConnectTask(this);
             task.execute();
-            askForPermission();
-
         }
         else {
             runOnUiThread(new Runnable() {
@@ -113,11 +137,11 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     public void disconnectMicrosoftBand(View v) {
         if (connected && client != null) {
-            try { client.disconnect().await();
+            try {
                 if(heartRateEventListener != null) {
                     client.getSensorManager().unregisterHeartRateEventListener(heartRateEventListener);
                 }
-
+                client.disconnect().await();
                 connected = false;
                 client = null;
                 runOnUiThread(new Runnable() {
@@ -135,8 +159,6 @@ public class BandConnectAcitivity extends AppCompatActivity {
                 });
                 Log.e("BandConnectionTask",e.getMessage());
             }
-
-
         } else {
             runOnUiThread(new Runnable() {
                 @Override
@@ -152,33 +174,14 @@ public class BandConnectAcitivity extends AppCompatActivity {
         connected = b;
     }
 
-    public void askForPermission() {
-        if(connected) {
-            if(client.getSensorManager().getCurrentHeartRateConsent() != UserConsent.GRANTED) {
-                client.getSensorManager().requestHeartRateConsent(this, new HeartRateConsentListener() {
-                    @Override
-                    public void userAccepted(boolean consentGiven) {
-                        recieveData();
-                    }
-                });
-            }
-            else if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
-                recieveData();
-            }
-
-        }
-    }
-
-    public void recieveData() {
-        try {
-            client.getSensorManager().registerHeartRateEventListener(heartRateEventListener);
-        } catch(BandException ex) {
-        }
-    }
-
     public void setClient(BandClient client){
         this.client = client;
     }
+
+    public BandHeartRateEventListener getHeartRateEventListener() {
+        return heartRateEventListener;
+    }
+
 
 
 
@@ -193,6 +196,11 @@ public class BandConnectAcitivity extends AppCompatActivity {
     * */
         @Override
         public boolean onKeyUp(int keyCode, KeyEvent event) {
+            //don't react if no simulated watch is connected
+            if(!connected){
+                return super.onKeyUp(keyCode, event);
+            }
+            //kept general to be able to copy it everywhere
            HeartRateSimulator simulator = MainActivity.Companion.getSimulator();
             switch (keyCode) {
                 case KeyEvent.KEYCODE_I :

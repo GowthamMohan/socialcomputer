@@ -1,5 +1,6 @@
 package saarland.dfki.socialanxietytrainer
 
+import android.app.Notification
 import android.graphics.Color
 import android.media.AudioTrack
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +8,10 @@ import android.os.Bundle
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_execute_task.*
 import saarland.dfki.socialanxietytrainer.audioanalysis.AudioRecorder
+import android.app.NotificationManager
+import android.support.v4.app.NotificationCompat
+
+
 
 class ExecuteTaskActivity : AppCompatActivity() {
 
@@ -18,15 +23,19 @@ class ExecuteTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_execute_task)
 
+
+
+
         audioRecorder = AudioRecorder(applicationContext)
 
         button_start_stop_task.setOnClickListener { view ->
             if (taskActive) {
-                stopAudioRecording()
+
                 button_start_stop_task.setBackgroundColor(Color.parseColor("#738b28"))
+                stopAudioRecording()
             } else {
-                startAudioRecording()
                 button_start_stop_task.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                startAudioRecording()
             }
             taskActive = !taskActive
         }

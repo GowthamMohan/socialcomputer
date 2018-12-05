@@ -7,15 +7,18 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /*
  * Thread to manage live recording/playback of voice input from the device's microphone.
  */
-public class AudioRecorder extends Thread {
+public class AudioRecorder extends Thread implements IAudioRecorder {
     private AtomicBoolean stopped = new AtomicBoolean(false);
     private AudioTrack track = null;
 
@@ -64,16 +67,22 @@ public class AudioRecorder extends Thread {
                     AudioTrack.MODE_STREAM);
 
             recorder.startRecording();
-            track.play();
             /*
              * Loops until something outside of this thread stops it.
              * Reads the data from the recorder and writes it to the audio track for playback.
              */
-            while (!stopped.get()) {
-//                Log.i("Map", "Writing new data to buffer");
+            while (true) {
+                if (stopped.get()) {
+                    recorder.stop();
+                }
+
                 short[] buffer = buffers[ix++ % buffers.length];
-                N = recorder.read(buffer,0,buffer.length);
+                N = recorder.read(buffer,0, buffer.length);
+                System.out.println("N: " + N);
                 track.write(buffer, 0, buffer.length);
+                if (N <= 0) {
+                    break;
+                }
             }
         } catch(Throwable x) {
             Log.w("Audio", "Error reading voice audio", x);
@@ -82,10 +91,12 @@ public class AudioRecorder extends Thread {
          * Frees the thread's resources after the loop completes so that it can be run again
          */
         finally {
-            recorder.stop();
+//            recorder.stop();
             recorder.release();
-            track.stop();
-            track.release();
+//            track.stop();
+//            track.pause();
+//            track.flush();
+//            track.release();
         }
     }
 
@@ -129,12 +140,19 @@ public class AudioRecorder extends Thread {
     /**
      * Called from outside of the thread in order to stop the recording/playback loop
      */
+    @Override
     public void close() {
         stopped.set(true);
     }
 
+    @Override
     public AudioTrack getTrack() {
         return track;
     }
 
+    @NotNull
+    @Override
+    public MediaPlayer getMediaPlayer() {
+        return null;
+    }
 }

@@ -68,9 +68,11 @@ public class EmoVoicePipelineRunner extends BasePipelineRunner {
             getSsj().addTransformer(classifier, emovoiceFeatures, 1.35, 0);
 
             // Logger
-            Logger log = new Logger();
+//            Logger log = new Logger();
+            EmoVoiceConsumer econs = new EmoVoiceConsumer();
             //frame.addConsumer(log, emovoiceFeatures, 1, 0);
-            getSsj().addConsumer(log, classifier, 1.35, 0);
+//            getSsj().addConsumer(log, classifier, 1.35, 0);
+            getSsj().addConsumer(econs, classifier, 1.35, 0);
 
             // Start framework
             getSsj().start();

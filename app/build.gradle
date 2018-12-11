@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     // SSJ for social signal processing
     // Use Jitpack for SSJ, because we need a version higher than the latest tag
-    // (v.7.2), because of the EmoVoice features. ThereFore, we use master-SNAPSHOT
+    // (v.7.2), because of the EmoVoice features. Therefore, we use master-SNAPSHOT
     implementation 'com.github.hcmlab:ssj:master-SNAPSHOT'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

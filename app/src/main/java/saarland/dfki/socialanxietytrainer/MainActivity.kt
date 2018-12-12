@@ -13,9 +13,12 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
+import android.content.pm.PackageManager
+import android.view.KeyEvent
 import kotlinx.android.synthetic.main.content_main.*
+import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
+import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +29,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Manifest.permission.BLUETOOTH,
             Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
+    //static simulator object to be able to access it from all actvities
+    companion object {
+        val simulator = HeartRateSimulator()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,9 +49,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-
-        // Permissions setup
-        checkPermissions()
     }
 
     override fun onBackPressed() {
@@ -88,18 +91,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_settings -> {
 
             }
+            //open Activity to connect Microsoft Band
+            R.id.nav_connect -> {
+                val intent = Intent(
+                        applicationContext,
+                        BandConnectAcitivity::class.java
+                )
+                startActivity(intent)
+
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    private fun checkPermissions() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (permissions.any {
-                        p -> ContextCompat.checkSelfPermission(this, p) !== PackageManager.PERMISSION_GRANTED }) {
-                ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS)
-            }
-        }
     }
 }

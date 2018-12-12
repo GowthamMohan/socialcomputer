@@ -33,14 +33,12 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 
 public class BandConnectAcitivity extends AppCompatActivity {
 
-
     private BandClient client = null;
     private HeartRateSimulator sim;
     private boolean connected;
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
     private boolean simulate = true; //<----change here!!!
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +87,8 @@ public class BandConnectAcitivity extends AppCompatActivity {
     }
     public void disconnect(View v) {
         //simulation
-        if(simulate) {
-            if(connected) {
+        if (simulate) {
+            if (connected) {
                 sim.stopSimulation();
                 connected = false;
                 runOnUiThread(new Runnable() {
@@ -99,28 +97,24 @@ public class BandConnectAcitivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Disconnected.", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-            else {
+            } else {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Nothing to disconnect.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         }
         //real microsoft band
         else {
             disconnectMicrosoftBand(v);
         }
-
-
     }
 
 
     public void connectMicrosotBand(View v) {
-        if(!connected) {
+        if (!connected) {
             BandConnectTask task = new BandConnectTask(this);
             task.execute();
         }
@@ -138,7 +132,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
     public void disconnectMicrosoftBand(View v) {
         if (connected && client != null) {
             try {
-                if(heartRateEventListener != null) {
+                if (heartRateEventListener != null) {
                     client.getSensorManager().unregisterHeartRateEventListener(heartRateEventListener);
                 }
                 client.disconnect().await();
@@ -201,7 +195,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
                 return super.onKeyUp(keyCode, event);
             }
             //kept general to be able to copy it everywhere
-           HeartRateSimulator simulator = MainActivity.Companion.getSimulator();
+            HeartRateSimulator simulator = MainActivity.Companion.getSimulator();
             switch (keyCode) {
                 case KeyEvent.KEYCODE_I :
                     simulator.simulateHeartRate(SimulationType.CALM);
@@ -218,9 +212,5 @@ public class BandConnectAcitivity extends AppCompatActivity {
                     return super.onKeyUp(keyCode, event);
             }
         }
-
-
-
-
 
 }

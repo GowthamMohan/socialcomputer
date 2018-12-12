@@ -16,3 +16,16 @@ android:
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
+
+sudo: required
+
+jdk:
+  - oraclejdk8
+
+install: true
+
+before_script:
+  - chmod +x gradlew
+
+script:
+  - ./gradlew build

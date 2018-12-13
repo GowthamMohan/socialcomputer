@@ -3,8 +3,6 @@ package saarland.dfki.socialanxietytrainer
 import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -13,12 +11,8 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
-import android.os.Build
-import android.content.pm.PackageManager
-import android.view.KeyEvent
 import kotlinx.android.synthetic.main.content_main.*
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
-import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -79,6 +73,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_tasks -> {
+                val intent = Intent(applicationContext, TaskSelectionActivity::class.java)
+                startActivity(intent)
 
             }
             R.id.nav_progress -> {

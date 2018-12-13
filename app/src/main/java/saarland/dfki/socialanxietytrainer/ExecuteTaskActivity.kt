@@ -41,6 +41,8 @@ class ExecuteTaskActivity : IPipeLine, ExceptionHandler, AppCompatActivity() {
         Log.i("LogueWorker", "destroyed")
     }
 
+
+
     /**
      * Prevent activity from being destroyed once back button is pressed
      */

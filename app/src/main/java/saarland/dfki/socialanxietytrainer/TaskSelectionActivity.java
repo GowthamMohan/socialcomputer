@@ -2,7 +2,10 @@ package saarland.dfki.socialanxietytrainer;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import saarland.dfki.socialanxietytrainer.executeTasks.Task;
+import saarland.dfki.socialanxietytrainer.executeTasks.TaskAdapter;
 
 
 public class TaskSelectionActivity extends AppCompatActivity {
@@ -30,6 +34,7 @@ public class TaskSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.task_selection_activity);
         taskList = new ArrayList<>();
             try{
                 //read file to string
@@ -64,6 +69,14 @@ public class TaskSelectionActivity extends AppCompatActivity {
             }catch (IOException e) {
                 e.printStackTrace();
             }
+
+        RecyclerView rv = findViewById(R.id.task_list_rv);
+        LinearLayoutManager layoutManager= new LinearLayoutManager(TaskSelectionActivity.this);
+
+           //rv.setHasFixedSize(true);
+            rv.setLayoutManager(layoutManager);
+        TaskAdapter adapter = new TaskAdapter(taskList,TaskSelectionActivity.this);
+        rv.setAdapter(adapter);
 
     }
 

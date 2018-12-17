@@ -39,7 +39,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
     private boolean connected;
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
-    private boolean simulate = false; //<----change here!!!
+    private boolean simulate = true; //<----change here!!!
 
 
     @Override

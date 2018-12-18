@@ -6,13 +6,13 @@ import android.widget.TextView;
 
 import saarland.dfki.socialanxietytrainer.R;
 
-public class ViewHolder extends RecyclerView.ViewHolder {
+public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     private TextView description;
     private TextView category;
     private TextView difficulty;
 
-    public ViewHolder(View v){
+    public TaskViewHolder(View v){
         super(v);
         category = (TextView) v.findViewById(R.id.category);
         difficulty = (TextView) v.findViewById(R.id.difficulty);

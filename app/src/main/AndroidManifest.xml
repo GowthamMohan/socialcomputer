@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="saarland.dfki.socialanxietytrainer">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -32,11 +32,10 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".StatisticsActivity" />
-        <activity
-            android:name=".MicrosoftBandActivity"
-            android:label="@string/title_activity_microsoft_band"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BandConnectAcitivity"></activity>
+        <activity android:name=".BandConnectAcitivity"
+            android:label="@string/title_activity_microsoft_band"></activity>
+        <activity android:name=".TaskSelectionActivity"
+            android:label="@string/title_activity_task_selction"></activity>
     </application>
 
 </manifest>

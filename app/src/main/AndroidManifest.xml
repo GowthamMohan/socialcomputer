@@ -32,8 +32,10 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".StatisticsActivity" />
-        <activity android:name=".BandConnectAcitivity"></activity>
-        <activity android:name=".TaskSelectionActivity"></activity>
+        <activity android:name=".BandConnectAcitivity"
+            android:label="@string/title_activity_microsoft_band"></activity>
+        <activity android:name=".TaskSelectionActivity"
+            android:label="@string/title_activity_task_selction"></activity>
     </application>
 
 </manifest>

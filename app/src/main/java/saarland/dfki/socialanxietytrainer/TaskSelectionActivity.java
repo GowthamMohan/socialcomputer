@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +32,7 @@ public class TaskSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_selection_activity);
+        setContentView(R.layout.activity_task_selection);
         taskList = new ArrayList<>();
             try{
                 //read file to string
@@ -75,7 +73,7 @@ public class TaskSelectionActivity extends AppCompatActivity {
 
            //rv.setHasFixedSize(true);
             rv.setLayoutManager(layoutManager);
-        TaskAdapter adapter = new TaskAdapter(taskList,TaskSelectionActivity.this);
+        TaskAdapter adapter = new TaskAdapter(taskList);
         rv.setAdapter(adapter);
 
     }

@@ -1,5 +1,6 @@
 package saarland.dfki.socialanxietytrainer.classification
 
 interface IAnxietyClassifier {
-    fun classifyAnxietyLevel(classifierData: List<Pair<ClassificationKind, Any>>): AnxietyLevel
+    fun classifyCurrentAnxietyLevel(classifierData: List<Pair<ClassificationKind, Any>>): AnxietyLevel
+    fun classifyOverallAnxietyLevel(): AnxietyLevel
 }

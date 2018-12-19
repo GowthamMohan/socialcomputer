@@ -1,7 +1,7 @@
 package saarland.dfki.socialanxietytrainer.classification
 
-import java.time.Instant
+import java.util.*
 
 interface IClassifierMemory {
-    fun memorize(time: Instant, c: ClassificationKind, value: Any)
+    fun memorize(time: Date, c: ClassificationKind, value: Any)
 }

@@ -13,11 +13,15 @@ import saarland.dfki.socialanxietytrainer.audioanalysis.BasePipelineRunner
 import saarland.dfki.socialanxietytrainer.audioanalysis.EmoVoicePipelineRunner
 import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLineExecutor
 import saarland.dfki.socialanxietytrainer.audioanalysis.SamplePipelineRunner
+import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
+import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
 
 class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivity() {
 
     private lateinit var _pipe: BasePipelineRunner
     private var _error_msg: String? = null
+
+    private val classificationManager = ClassificationManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +35,8 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         val graph = findViewById(R.id.graph) as GraphView
         graph.removeAllSeries()
         //            graph.getSecondScale().removeAllSeries(); //not implemented in GraphView 4.0.1
-        val graphs = arrayOf<GraphView>(graph)
-        _pipe = EmoVoicePipelineRunner(this, applicationContext)
+//        val graphs = arrayOf<GraphView>(graph)
+        _pipe = EmoVoicePipelineRunner(this, classificationManager.getConsumer(ClassificationKind.VOICE), applicationContext)
 //        _pipe = SamplePipelineRunner(this, graphs)
         _pipe.setExceptionHandler(this)
     }

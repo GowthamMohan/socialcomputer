@@ -1,6 +1,5 @@
 package saarland.dfki.socialanxietytrainer.classification
 
-import java.time.Instant
 import java.util.*
 
 /**
@@ -8,11 +7,11 @@ import java.util.*
  */
 class VolatileMemory : IClassifierMemory {
 
-    private val heartbeatData: LinkedList<Pair<Instant, Any>> = LinkedList()
-    private val voiceData: LinkedList<Pair<Instant, Any>> = LinkedList()
-    private val questionnaireData: LinkedList<Pair<Instant, Any>> = LinkedList()
+    private val heartbeatData: LinkedList<Pair<Date, Any>> = LinkedList()
+    private val voiceData: LinkedList<Pair<Date, Any>> = LinkedList()
+    private val questionnaireData: LinkedList<Pair<Date, Any>> = LinkedList()
 
-    override fun memorize(time: Instant, c: ClassificationKind, value: Any) {
+    override fun memorize(time: Date, c: ClassificationKind, value: Any) {
         when (c) {
             ClassificationKind.HEARTBEAT -> heartbeatData.add(Pair(time, value))
             ClassificationKind.VOICE -> voiceData.add(Pair(time, value))
@@ -20,11 +19,11 @@ class VolatileMemory : IClassifierMemory {
         }
     }
 
-    fun getLastHeartbeatEntry(): Pair<Instant, Any> {
+    fun getLastHeartbeatEntry(): Pair<Date, Any> {
         return heartbeatData.last
     }
 
-    fun getLastVoiceEntry(): Pair<Instant, Any> {
+    fun getLastVoiceEntry(): Pair<Date, Any> {
         return voiceData.last
     }
 

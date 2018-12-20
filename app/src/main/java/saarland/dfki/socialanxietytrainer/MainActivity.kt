@@ -11,15 +11,15 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
-import android.view.View
-import kotlinx.android.synthetic.main.content_main.*
-import saarland.dfki.socialanxietytrainer.executeTasks.SetupTasks
+import saarland.dfki.socialanxietytrainer.executeTasks.SetupAsyncTask
+import saarland.dfki.socialanxietytrainer.executeTasks.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val task_setup : SetupTasks = SetupTasks(this)
+    private val task_setup : SetupAsyncTask = SetupAsyncTask(this)
+    private var taskManager: TaskManager? = null
 
     private val REQUEST_PERMISSIONS = 108
     private val permissions = arrayOf(Manifest.permission.BODY_SENSORS,
@@ -72,7 +72,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        }
 //    }
 
+    fun setTaskManager(taskManager: TaskManager){
+        this.taskManager = taskManager
+    }
 
+    fun getTaskManager(): TaskManager? {
+        return taskManager
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.

@@ -1,6 +1,8 @@
 {
+  "nr_categories":5,
+  "nr_levels":3,
   "tasks_f1": [
-    {"cat_text":"Talking with Strangers"},
+    {"category_text":"Talking with Strangers"},
         {"level_1":[
           {"description":"make eye contact with a person you would like to talk to"},
           {"description":"smile at a stranger"},
@@ -29,7 +31,7 @@
 
 
   "tasks_f2": [
-    {"cat_text":"Speaking in public/Talking with people in authority "},
+    {"category_text":"Speaking in public/Talking with people in authority "},
       {"level_1":[
         {"description":"present a topic you’re interested to a group of friends"},
         {"description":"ask an employee at a store for a discount"},
@@ -49,7 +51,7 @@
 
 
   "tasks_f3": [
-    {"cat_text":"Interactions with the opposite sex"},
+    {"category_text":"Interactions with the opposite sex"},
     {"level_1":[
       {"description":"ask somebody you find attractive for a his/her number"},
       {"description":"ask a person you find attractive if you can sit next to him/her in the bus/train"},
@@ -70,7 +72,7 @@
     ]
     }],
   "tasks_f4": [
-    {"cat_text":"Critcism and embarrassment "},
+    {"category_text":"Critcism and embarrassment "},
 
     {"level_1":[
       {"description":"ask your supervisor (teacher, lecturer) for feedback about your performance"},
@@ -93,7 +95,7 @@
   ],
 
   "tasks_f5": [
-    {"cat_text":"expression of annoyance, disgust or displeasure"},
+    {"category_text":"expression of annoyance, disgust or displeasure"},
     {"level_1":[
       {"description":"tell a close friend what bothers you about him/her"},
       {"description":"enforce your opinion in a project or a meeting "},

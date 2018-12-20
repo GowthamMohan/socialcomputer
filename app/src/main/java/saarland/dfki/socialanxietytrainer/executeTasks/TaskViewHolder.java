@@ -40,15 +40,15 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setDifficultyText(String str) {
-        difficulty.setText(str);
+        difficulty.setText("Difficulty: " + str);
     }
 
     public void setCategoryText(String str) {
-        category.setText(str);
+        category.setText("Category: " + str);
     }
 
     public void setDescriptionText(String str) {
-        description.setText(str);
+        description.setText("Description: " + str);
     }
 
 

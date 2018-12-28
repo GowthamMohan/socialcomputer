@@ -3,7 +3,7 @@ package saarland.dfki.socialanxietytrainer.classification
 import java.util.*
 
 /**
- * Does not store the data persistently.
+ * The memory implementation does not store the data persistently.
  */
 class VolatileMemory : IClassifierMemory {
 
@@ -19,12 +19,20 @@ class VolatileMemory : IClassifierMemory {
         }
     }
 
-    fun getLastHeartbeatEntry(): Pair<Date, Any> {
-        return heartbeatData.last
+    override fun getLastValue(c: ClassificationKind): Pair<Date, Any> {
+        return when (c) {
+            ClassificationKind.HEARTBEAT -> heartbeatData.last
+            ClassificationKind.VOICE -> voiceData.last
+            ClassificationKind.QUESTIONNAIRE -> questionnaireData.last
+        }
     }
 
-    fun getLastVoiceEntry(): Pair<Date, Any> {
-        return voiceData.last
+    override fun getAllValues(c: ClassificationKind): List<Pair<Date, Any>> {
+        return when (c) {
+            ClassificationKind.HEARTBEAT -> heartbeatData
+            ClassificationKind.VOICE -> voiceData
+            ClassificationKind.QUESTIONNAIRE -> questionnaireData
+        }
     }
 
 }

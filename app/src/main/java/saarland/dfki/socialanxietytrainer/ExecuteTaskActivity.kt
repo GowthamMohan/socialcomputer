@@ -15,6 +15,7 @@ import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLineExecutor
 import saarland.dfki.socialanxietytrainer.audioanalysis.SamplePipelineRunner
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
+import saarland.dfki.socialanxietytrainer.executeTasks.ExecuteTaskWatcher
 
 class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivity() {
 
@@ -22,6 +23,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     private var _error_msg: String? = null
 
     private val classificationManager = ClassificationManager()
+    private val executeTaskWatcher = ExecuteTaskWatcher(this, classificationManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         }
 
         // Setup pipeline
-        val graph = findViewById(R.id.graph) as GraphView
+        val graph = findViewById<GraphView>(R.id.graph)
         graph.removeAllSeries()
         //            graph.getSecondScale().removeAllSeries(); //not implemented in GraphView 4.0.1
 //        val graphs = arrayOf<GraphView>(graph)
@@ -42,24 +44,24 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     }
 
     override fun onDestroy() {
-        if (_pipe.isRunning())
+        if (_pipe.isRunning()) {
             _pipe.terminate()
+            executeTaskWatcher.terminate()
+        }
 
         super.onDestroy()
         Log.i("LogueWorker", "destroyed")
     }
 
-
-
     /**
-     * Prevent activity from being destroyed once back button is pressed
+     * Prevent activity from being destroyed once back button is pressed.
      */
     override fun onBackPressed() {
         moveTaskToBack(true)
     }
 
-    fun onStartPressed(v: View) {
-        val btn = findViewById(R.id.button_start_stop_task) as Button
+    private fun onStartPressed(v: View) {
+        val btn = findViewById<Button>(R.id.button_start_stop_task)
         btn.setAlpha(0.5f)
         btn.setEnabled(false)
         getCacheDir().getAbsolutePath()
@@ -69,24 +71,26 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
 
         if (!_pipe.isRunning()) {
             _pipe.start()
+            executeTaskWatcher.start()
         } else {
             _pipe.terminate()
+            executeTaskWatcher.terminate()
         }
     }
 
     override fun notifyPipeState(running: Boolean) {
         this.runOnUiThread {
-            val btn = findViewById(R.id.button_start_stop_task) as Button
+            val btn = findViewById<Button>(R.id.button_start_stop_task)
 
             if (running) {
                 btn.setText(R.string.stop)
-                btn.setEnabled(true)
-                btn.setAlpha(1.0f)
+                btn.isEnabled = true
+                btn.alpha = 1.0f
             } else {
                 assert(_error_msg != null)
                 btn.setText(R.string.start)
-                btn.setEnabled(true)
-                btn.setAlpha(1.0f)
+                btn.isEnabled = true
+                btn.alpha = 1.0f
             }
         }
     }
@@ -94,6 +98,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     override fun handle(location: String, msg: String, t: Throwable) {
         _error_msg = msg
         _pipe.terminate() //attempt to shut down framework
+        executeTaskWatcher.terminate()
 
         this.runOnUiThread {
             Toast.makeText(applicationContext,"Exception in Pipeline\n$msg", Toast.LENGTH_LONG).show()

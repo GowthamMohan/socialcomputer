@@ -40,4 +40,13 @@
         android:layout_height="200dip"
         android:id="@+id/graph" />
 
+    <TextView
+        android:id="@+id/textView_curr_anxiety_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="55dp"
+        android:text="@string/textView_curr_anxiety_level" />
+
 </RelativeLayout>

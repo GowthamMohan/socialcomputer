@@ -18,9 +18,10 @@ class ClassificationManager : Consumer() {
 
     @Synchronized
     fun consume(c: ClassificationKind, data: Any) {
-        Log.i("consume: c: $c  data: $data")
+        Log.i("Consume: c: $c  data: $data")
         memory.memorize(Date(), c, data)
-        classifier.classifyCurrentAnxietyLevel(listOf(Pair(c, data)))
+        lastClassification = classifier.classifyCurrentAnxietyLevel(listOf(Pair(c, data)))
+        Log.i("Current classification: $lastClassification")
     }
 
     @Synchronized
@@ -69,26 +70,16 @@ class ClassificationManager : Consumer() {
     }
 
     override fun consume(stream_in: Array<out Stream>, trigger: Event?) {
-
-//        var msg: String;
         for (k in stream_in.indices) {
             val num = if (options.reduceNum.get()) 1 else stream_in[k].num
-//            msg = "EmoVoiceConsumer: "
-
 
             for (i in 0 until num) {
                 assert(stream_in[k].dim == 2)
                 val valence: Float = stream_in[k].ptrF()[i * stream_in[k].dim + 0]
                 val arousal: Float = stream_in[k].ptrF()[i * stream_in[k].dim + 1]
                 val p: Pair<Float, Float> = Pair(valence, arousal)
-
-
-//                for (j in 0 until stream_in[k].dim) {
-//                    msg += "" + stream_in[k].ptrF()[i * stream_in[k].dim + j] + " "
-//                }
                 consume(ClassificationKind.VOICE, p)
             }
-//            Log.i(msg)
         }
     }
 

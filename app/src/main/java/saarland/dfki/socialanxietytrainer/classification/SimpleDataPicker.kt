@@ -1,11 +1,11 @@
 package saarland.dfki.socialanxietytrainer.classification
 
-class SimpleDataPicker(val memory: IClassifierMemory) : IDataPickerStrategy {
+class SimpleDataPicker(private val memory: IClassifierMemory) : IDataPickerStrategy {
     override fun getValues(c: ClassificationKind): List<Any> {
-        TODO("not implemented")
+        return memory.getAllValues(c).map { it.second }
     }
 
     override fun getValue(c: ClassificationKind): Any {
-        TODO("not implemented")
+        return memory.getLastValue(c).second
     }
 }

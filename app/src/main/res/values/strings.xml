@@ -87,4 +87,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_microsoft_band">Connect Microsoft Band</string>
     <string name="title_activity_task_selction">Select a Task</string>
+    <string name="textView_curr_anxiety_level">Current anxiety level:</string>
 </resources>

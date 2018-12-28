@@ -1,5 +1,5 @@
 package saarland.dfki.socialanxietytrainer.audioanalysis
 
-interface IPipeLine {
+interface IPipeLineExecutor {
     fun notifyPipeState(running: Boolean)
 }

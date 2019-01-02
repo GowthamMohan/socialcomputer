@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        button_start_quiz.setOnClickListener { view ->
+            val intent = Intent(view.context, QuizActivity::class.java)
+            startActivity(intent)
+        }
+
         button_execute_task.setOnClickListener { view ->
             val intent = Intent(view.context, ExecuteTaskActivity::class.java)
             startActivity(intent)

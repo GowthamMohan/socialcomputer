@@ -38,6 +38,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
         task_setup.execute()
+        button_start_quiz.setOnClickListener { view ->
+            val intent = Intent(view.context, QuizActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
         val toggle = ActionBarDrawerToggle(

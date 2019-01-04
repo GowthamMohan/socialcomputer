@@ -11,6 +11,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
+import kotlinx.android.synthetic.main.content_main.*
 import saarland.dfki.socialanxietytrainer.executeTasks.SetupAsyncTask
 import saarland.dfki.socialanxietytrainer.executeTasks.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator

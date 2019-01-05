@@ -38,6 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".WalkthroughActivity"></activity>
+
+        <activity android:name=".QuizActivity"></activity>
     </application>
 
 </manifest>

@@ -42,7 +42,7 @@ public class SetupAsyncTask extends AsyncTask<Void,Void,Void> {
     public SetupAsyncTask(Activity activity){
         this.mainActivity = activity;
         counter = 0;
-        levels = new int[]{3, 1, 1, 1, 1, 1};
+        levels = new int[]{3, 1, 1, 2, 3};
     }
     //later use this constructor with the results from the questionnaire
     public SetupAsyncTask(Activity activity, int[] levels) {

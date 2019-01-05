@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="Walkthrough"
+        android:textSize="40dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:textAlignment="center"
+        android:text="Welcome to Social Anxiety Trainer ! You can overcome your social anxiety by doing tasks according to your social anxiety level. The social anxiety level is classified by your answers on questionnaires and monitored  heart beat and voice input. Please take some time and answer the 30 set questionnaire carefully. There will be 5 options and you click on the option that is most relevant to your situation. If you have never experienced any such situation before, please select what level of stress or nervousness you would have been if you were in such situation. We will be evaluating based on your honest answers and you will be assigned with certain tasks. While performing the task make sure you connect your smartwatch to your phone. Every time you are given with a task to perform, click the start and stop button respectively. It will automatically record your heart rate as well as voice. We would like to give you a weekly update of your improvement in social environments. We hope you enjoy using our app. If you are comfortable with the above read conditions please click the checkbox below to proceed further. "
+        android:textSize="11dp"
+        android:textStyle="normal" />
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="18dp"
+        android:text="Read all the terms and conditions"
+        android:textStyle="bold"
+        android:onClick="onCheckboxClicked"
+        />
+
+    <Button
+        android:id="@+id/button_start_quiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="27dp"
+        android:text="Start"
+        android:textAlignment="center"
+        />
+
+</RelativeLayout>

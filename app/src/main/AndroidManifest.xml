@@ -38,8 +38,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".WalkthroughActivity"></activity>
+        <activity android:name=".ExecuteTaskActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".BandConnectAcitivity"
+            android:label="@string/title_activity_microsoft_band"></activity>
+        <activity
+            android:label="@string/title_quiz_activity"
+            android:name=".QuizActivity" />
 
-        <activity android:name=".QuizActivity"></activity>
     </application>
 
 </manifest>

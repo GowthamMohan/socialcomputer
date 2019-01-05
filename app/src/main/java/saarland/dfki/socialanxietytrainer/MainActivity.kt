@@ -12,10 +12,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
 import kotlinx.android.synthetic.main.content_main.*
+import saarland.dfki.socialanxietytrainer.executeTasks.SetupAsyncTask
+import saarland.dfki.socialanxietytrainer.executeTasks.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private val task_setup : SetupAsyncTask = SetupAsyncTask(this)
+    private var taskManager: TaskManager? = null
 
     private val REQUEST_PERMISSIONS = 108
     private val permissions = arrayOf(Manifest.permission.BODY_SENSORS,
@@ -32,15 +37,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
+        task_setup.execute()
         button_start_quiz.setOnClickListener { view ->
             val intent = Intent(view.context, QuizActivity::class.java)
             startActivity(intent)
         }
 
-        button_execute_task.setOnClickListener { view ->
-            val intent = Intent(view.context, ExecuteTaskActivity::class.java)
-            startActivity(intent)
-        }
+
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -74,12 +78,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        }
 //    }
 
+    fun setTaskManager(taskManager: TaskManager){
+        this.taskManager = taskManager
+    }
+
+    fun getTaskManager(): TaskManager? {
+        return taskManager
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_tasks -> {
-                val intent = Intent(applicationContext, TaskSelectionActivity::class.java)
-                startActivity(intent)
+
 
             }
             R.id.nav_progress -> {

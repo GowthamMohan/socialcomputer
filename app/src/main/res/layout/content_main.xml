@@ -8,13 +8,12 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <Button
-        android:id="@+id/button_execute_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Execute task"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="316dp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 
 
     <Button

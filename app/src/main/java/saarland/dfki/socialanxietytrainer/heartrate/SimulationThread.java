@@ -2,15 +2,20 @@ package saarland.dfki.socialanxietytrainer.heartrate;
 
 import android.util.Log;
 
+import saarland.dfki.socialanxietytrainer.BandConnectAcitivity;
+
 public class SimulationThread extends Thread {
 
     private HeartRateSimulator simulator;
     private SimulationType type;
+    private BandConnectAcitivity acitivity;
 
 
-    public SimulationThread(HeartRateSimulator sim, SimulationType type) {
+    public SimulationThread(HeartRateSimulator sim, SimulationType type, BandConnectAcitivity activity) {
         this.simulator = sim;
         this.type = type;
+        this.acitivity = activity;
+
     }
 
     @Override
@@ -35,8 +40,10 @@ public class SimulationThread extends Thread {
             } else {
                 tmp = (tmp * 10) + 110; //set to interval 100 - 120 bpm, very anxious
             }
-            simulator.setHeartrate(tmp);
+            simulator.setHeartrate((int)tmp);
+            acitivity.setHeartrate((int) tmp);
             Log.d("SimThread", Integer.toString((int) tmp) + "bpm");
+
         }
     }
 

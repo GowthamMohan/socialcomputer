@@ -45,6 +45,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_band_connect_acitivity);
         sim =MainActivity.Companion.getSimulator();
+        sim.setActivity(this);
         heartRateEventListener = new BandHeartRateEventListener() {
             @Override
             public void onBandHeartRateChanged(final BandHeartRateEvent event) {
@@ -176,18 +177,23 @@ public class BandConnectAcitivity extends AppCompatActivity {
         return heartRateEventListener;
     }
 
+    public void setHeartrate(int heartrate) {
+        this.heartrate = heartrate;
+    }
 
+    public int getHeartrate() {
+        return heartrate;
+    }
 
+    /* onKeyUp method is for developing only!  Allows you to manually change the heartrate:
+                    press I on keybord to simulate a calm heartrate
+                    press O on keybord to simulate a slightly increased heartrate (a bit nervous or excited)
+                    press P on keybord to simulate a very high heartrate (fear)
+                    If input does not work, click on the emulator and try again
+                    IMPORTANT: Only works in activities that have this method! If you need to manipulate the heartrate in another activity,
+                    simply copy & paste this method and add it to that activity
 
-        /* onKeyUp method is for developing only!  Allows you to manually change the heartrate:
-            press I on keybord to simulate a calm heartrate
-            press O on keybord to simulate a slightly increased heartrate (a bit nervous or excited)
-            press P on keybord to simulate a very high heartrate (fear)
-            If input does not work, click on the emulator and try again
-            IMPORTANT: Only works in activities that have this method! If you need to manipulate the heartrate in another activity,
-            simply copy & paste this method and add it to that activity
-
-    * */
+            * */
         @Override
         public boolean onKeyUp(int keyCode, KeyEvent event) {
             //don't react if no simulated watch is connected

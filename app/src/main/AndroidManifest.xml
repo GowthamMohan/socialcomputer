@@ -35,6 +35,9 @@
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".BandConnectAcitivity"
             android:label="@string/title_activity_microsoft_band"></activity>
+        <activity
+            android:label="@string/title_quiz_activity"
+            android:name=".QuizActivity" />
     </application>
 
 </manifest>

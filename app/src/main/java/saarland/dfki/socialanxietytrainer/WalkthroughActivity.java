@@ -32,7 +32,7 @@ public class WalkthroughActivity extends AppCompatActivity {
 
 
     private void startQuiz() {
-        Intent intent = new Intent(WalkthroughActivity.this, MainActivity.class);
+        Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
     }
     public void onCheckboxClicked(View view) {

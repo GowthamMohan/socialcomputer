@@ -1,5 +1,6 @@
 package saarland.dfki.socialanxietytrainer;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +15,14 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
-import saarland.dfki.socialanxietytrainer.questions.Question;
-
 import saarland.dfki.socialanxietytrainer.questions.QuizDbHelper;
 
-public class
-QuizActivity extends AppCompatActivity {
+import saarland.dfki.socialanxietytrainer.questions.Question;
+public class QuizActivity extends AppCompatActivity {
     private TextView textViewQuestion;
-    private TextView textViewScore;
+
     private TextView textViewQuestionCount;
-    private TextView textViewCountDown;
+
     private RadioGroup rbGroup;
     private RadioButton rb1;
     private RadioButton rb2;
@@ -48,8 +47,8 @@ QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         textViewQuestion = findViewById(R.id.text_view_question);
-        textViewScore = findViewById(R.id.text_view_score);
-        textViewCountDown = findViewById(R.id.text_view_countdown);
+        /* textViewScore = findViewById(R.id.text_view_score);
+        textViewCountDown = findViewById(R.id.text_view_countdown); */
         textViewQuestionCount = findViewById(R.id.text_view_question_count);
         rbGroup = findViewById(R.id.radio_group);
         rb1 = findViewById(R.id.radio_button1);
@@ -161,6 +160,9 @@ QuizActivity extends AppCompatActivity {
 
     private void finishQuiz()
     {
-        finish();
+
+        Intent intent = new Intent(QuizActivity.this, MainActivity.class);
+        startActivity(intent);
+
     }
 }

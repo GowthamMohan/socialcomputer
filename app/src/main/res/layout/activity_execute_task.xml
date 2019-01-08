@@ -17,28 +17,24 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/task_description"
+        android:id="@+id/textView_task_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
         android:layout_marginTop="40dp"
-        android:text="Task description"
+        android:text="Category: "
         app:layout_constraintStart_toStartOf="@+id/task_view"
         app:layout_constraintTop_toTopOf="@+id/task_view" />
 
-    <Button
-        android:id="@+id/button_start_stop_task"
+    <TextView
+        android:id="@+id/textView_task_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:text="Start/ Stop task" />
-
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph" />
+        android:layout_marginStart="26dp"
+        android:layout_below="@id/textView_task_category"
+        android:text="Description: "
+        app:layout_constraintStart_toStartOf="@+id/task_view"
+        app:layout_constraintTop_toTopOf="@+id/task_view" />
 
     <TextView
         android:id="@+id/textView_curr_anxiety_level"
@@ -46,7 +42,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="55dp"
+        android:layout_marginStart="26dp"
         android:text="@string/textView_curr_anxiety_level" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_start_stop_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="100dp"
+        android:src="@drawable/ic_play_arrow_black" />
 
 </RelativeLayout>

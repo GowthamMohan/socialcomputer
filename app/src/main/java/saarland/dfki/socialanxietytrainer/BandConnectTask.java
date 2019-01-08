@@ -94,7 +94,7 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
                             msg = "No permission to acces heartrate sensor.";
                             break;
                         case UNSUPPORTED_SDK_VERSION_ERROR:
-                            msg = "SDK not supported.";
+                            msg = "SDK not supported. You need a Microsoft Band 2.";
                             break;
                         case TIMEOUT_ERROR:
                             msg = "Timeout.";

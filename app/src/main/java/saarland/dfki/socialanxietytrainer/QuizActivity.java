@@ -71,13 +71,13 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!answered) {
-                   /* if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()|| rb4.isChecked()|| rb5.isChecked()) {
-                        checkAnswer();
+                    if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()|| rb4.isChecked()|| rb5.isChecked()) {
+
+                        showNextQuestion();
+
                     } else {
                         Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
                     }
-                } else { */
-                    showNextQuestion();
                 }
             }
         });
@@ -114,7 +114,7 @@ public class QuizActivity extends AppCompatActivity {
         answered = true;
 
          RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
-        /* int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
+        int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
 
          if (answerNr == currentQuestion.getAnswerNr()) {
             score++;

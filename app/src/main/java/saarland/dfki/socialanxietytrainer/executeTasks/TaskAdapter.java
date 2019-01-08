@@ -34,13 +34,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     //viewgroup = parent, i = type
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup,false);
         return new TaskViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder tvh, int i) {
-        Task t = taskList.get(i);
+        final Task t = taskList.get(i);
         tvh.setCategoryText(t.getCategory());
         tvh.setDifficultyText(Integer.toString(t.getDifficulty()));
         tvh.setDescriptionText(t.getDescription());
@@ -48,8 +48,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(activity, ExecuteTaskActivity.class);
+                i.putExtra("category", t.getCategory());
+                i.putExtra("description", t.getDescription());
+                i.putExtra("difficulty", "" + t.getDifficulty());
+                i.putExtra("id", "" + t.getId());
                 activity.startActivity(i);
-
             }
         });
     }

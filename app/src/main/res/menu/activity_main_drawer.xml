@@ -10,7 +10,7 @@
             android:title="Tasks" />
         <item
             android:id="@+id/nav_progress"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_timeline_black"
             android:title="Progress" />
         <item
             android:id="@+id/nav_share"

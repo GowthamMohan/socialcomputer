@@ -20,7 +20,6 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         difficulty = (TextView) v.findViewById(R.id.difficulty);
         description = (TextView)v.findViewById(R.id.description);
         linearLayout = (LinearLayout)v.findViewById(R.id.linear_layout_tasks);
-
     }
 
     public TextView getCategory() {

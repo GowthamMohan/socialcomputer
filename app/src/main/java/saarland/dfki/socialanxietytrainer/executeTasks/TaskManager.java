@@ -9,7 +9,7 @@ public class TaskManager {
     private int nr_categories;
 
 
-    public TaskManager(ArrayList<Task> tasks[][],int[] user_levels) {
+    public TaskManager(ArrayList<Task> tasks[][], int[] user_levels) {
         this.tasks = tasks;
         this.nr_categories = tasks.length;
         this.user_levels = user_levels;
@@ -20,7 +20,7 @@ public class TaskManager {
         int random_index;
         int min = 0;
         int max;
-        for(int category = 0; category < nr_categories; category++) {
+        for (int category = 0; category < nr_categories; category++) {
             int user_level = user_levels[category];
             max = tasks[category][user_level - 1].size() - 1;
             random_index = min + (int)(Math.random() * max);
@@ -30,13 +30,13 @@ public class TaskManager {
         return selection;
     }
 
-    public void decreaseLevel(int category){
+    public void decreaseLevel(int category) {
         if(user_levels[category] > 1) {
             user_levels[category]--;
         }
     }
 
-    public void increaseLevel(int category){
+    public void increaseLevel(int category) {
         if(user_levels[category] < 3) {
             user_levels[category]++;
         }

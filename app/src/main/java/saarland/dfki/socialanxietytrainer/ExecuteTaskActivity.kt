@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_execute_task.*
 import saarland.dfki.socialanxietytrainer.audioanalysis.BasePipelineRunner
 import saarland.dfki.socialanxietytrainer.audioanalysis.EmoVoicePipelineRunner
 import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLineExecutor
-import saarland.dfki.socialanxietytrainer.audioanalysis.SamplePipelineRunner
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
 import saarland.dfki.socialanxietytrainer.executeTasks.ExecuteTaskWatcher
@@ -44,7 +43,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         findViewById<TextView>(R.id.textView_task_description).text = "Description: ${this.description}"
 
         button_start_stop_task.setOnClickListener { view ->
-            onStartPressed(view)
+            onStartStopPressed(view)
         }
 
         // Setup pipeline
@@ -69,7 +68,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         moveTaskToBack(true)
     }
 
-    private fun onStartPressed(v: View) {
+    private fun onStartStopPressed(v: View) {
         val btn = findViewById<ImageButton>(R.id.button_start_stop_task)
         getCacheDir().getAbsolutePath()
 

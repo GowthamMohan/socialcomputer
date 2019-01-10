@@ -21,6 +21,7 @@ import saarland.dfki.socialanxietytrainer.IOHelper;
 public class EmoVoicePipelineRunner extends BasePipelineRunner {
 
     private boolean terminate = false;
+    private boolean running = false;
 
     private final String modelName = "emovoice.trainer";
     private final File resDir;
@@ -46,6 +47,7 @@ public class EmoVoicePipelineRunner extends BasePipelineRunner {
 
     @Override
     public void run() {
+        running = true;
 
         try {
             // Setup framework
@@ -101,6 +103,7 @@ public class EmoVoicePipelineRunner extends BasePipelineRunner {
         getSsj().stop();
         getSsj().release();
         act.notifyPipeState(false);
+        running = false;
     }
 
     @Override
@@ -114,6 +117,6 @@ public class EmoVoicePipelineRunner extends BasePipelineRunner {
 
     @Override
     public boolean isRunning() {
-        return false;
+        return running;
     }
 }

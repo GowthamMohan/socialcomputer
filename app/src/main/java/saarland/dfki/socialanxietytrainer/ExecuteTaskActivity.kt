@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import android.widget.ImageButton
 import android.widget.TextView
 import hcm.ssj.core.ExceptionHandler
@@ -15,6 +16,7 @@ import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLineExecutor
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
 import saarland.dfki.socialanxietytrainer.executeTasks.ExecuteTaskWatcher
+import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
 class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivity() {
 
@@ -26,7 +28,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     private lateinit var _pipe: BasePipelineRunner
     private var _error_msg: String? = null
 
-    private val classificationManager = ClassificationManager()
+    private val classificationManager = MainActivity.classificationManager
     private val executeTaskWatcher = ExecuteTaskWatcher(this, classificationManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,6 +112,44 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
             Toast.makeText(applicationContext,"Exception in Pipeline\n$msg", Toast.LENGTH_LONG).show()
         }
     }
+
+    /* onKeyUp method is for developing only!  Allows you to manually change the heartrate:
+                    press I on keybord to simulate a calm heartrate
+                    press O on keybord to simulate a slightly increased heartrate (a bit nervous or excited)
+                    press P on keybord to simulate a very high heartrate (fear)
+                    If input does not work, click on the emulator and try again
+                    IMPORTANT: Only works in activities that have this method! If you need to manipulate the heartrate in another activity,
+                    simply copy & paste this method and add it to that activity
+
+            * */
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        //don't react if no simulated watch is connected
+        if (!BandConnectAcitivity.connected) {
+            return super.onKeyUp(keyCode, event)
+        }
+        //kept general to be able to copy it everywhere
+        val simulator = MainActivity.simulator
+        when (keyCode) {
+            KeyEvent.KEYCODE_I -> {
+                simulator.simulateHeartRate(SimulationType.CALM)
+                return true
+            }
+
+            KeyEvent.KEYCODE_O -> {
+                simulator.simulateHeartRate(SimulationType.EXCITED)
+                return true
+            }
+
+            KeyEvent.KEYCODE_P -> {
+                simulator.simulateHeartRate(SimulationType.FRIGHTENED)
+                return true
+            }
+            else -> return super.onKeyUp(keyCode, event)
+        }
+    }
+
+
+
 
 }
 

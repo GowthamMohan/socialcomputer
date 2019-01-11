@@ -16,6 +16,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import kotlinx.android.synthetic.main.content_main.*
+import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
 import saarland.dfki.socialanxietytrainer.executeTasks.SetupAsyncTask
 import saarland.dfki.socialanxietytrainer.executeTasks.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private val task_setup : SetupAsyncTask = SetupAsyncTask(this)
     private var taskManager: TaskManager? = null
+
 
     private val REQUEST_PERMISSIONS = 108
     private val permissions = arrayOf(Manifest.permission.BODY_SENSORS,
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //static simulator object to be able to access it from all actvities
     companion object {
         val simulator = HeartRateSimulator()
+        val classificationManager = ClassificationManager()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun getTaskManager(): TaskManager? {
         return taskManager
     }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.

@@ -65,7 +65,6 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
     }
 
 
-    //HERE
     private fun classifyHeartbeat(value: Any): AnxietyLevel {
         assert(value is Int)
         assert(value in 0 .. 220)
@@ -73,9 +72,7 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
         return when {
             heartrate  <= 80 -> AnxietyLevel.LOW
             heartrate in 81 .. 110 -> AnxietyLevel.MILD
-            else -> {
-                AnxietyLevel.HIGH
-            }
+            else -> AnxietyLevel.HIGH
         }
 
     }

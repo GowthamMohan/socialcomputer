@@ -1,4 +1,4 @@
-package saarland.dfki.socialanxietytrainer.questions;
+package saarland.dfki.socialanxietytrainer.db;
 
 import android.provider.BaseColumns;
 

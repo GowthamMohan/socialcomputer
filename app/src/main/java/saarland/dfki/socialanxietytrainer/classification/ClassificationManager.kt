@@ -11,10 +11,10 @@ import java.util.*
 
 class ClassificationManager : Consumer() {
 
-    private val memory: IClassifierMemory = VolatileMemory()
+    private val memory: IClassifierMemory = PersistentMemory()
     private val dataPickerStrategy: IDataPickerStrategy = SimpleDataPicker(memory)
     private val classifier: IAnxietyClassifier = AnxietyClassifier(dataPickerStrategy)
-    var lastClassification = AnxietyLevel.NONE
+    private var lastClassification = AnxietyLevel.NONE
 
     @Synchronized
     fun consume(c: ClassificationKind, data: Any) {

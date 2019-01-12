@@ -9,6 +9,8 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import saarland.dfki.socialanxietytrainer.classification.ClassificationKind;
+import saarland.dfki.socialanxietytrainer.classification.ClassificationManager;
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator;
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType;
 
@@ -35,10 +37,14 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     private BandClient client = null;
     private HeartRateSimulator sim;
-    private boolean connected;
+    public static boolean connected;
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
     private boolean simulate = true; //<----change here!!!
+    private ClassificationManager classificationManager;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +52,14 @@ public class BandConnectAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_band_connect_acitivity);
         sim =MainActivity.Companion.getSimulator();
         sim.setActivity(this);
+        classificationManager = MainActivity.Companion.getClassificationManager();
         heartRateEventListener = new BandHeartRateEventListener() {
             @Override
             public void onBandHeartRateChanged(final BandHeartRateEvent event) {
                     if (event != null) {
                     heartrate = event.getHeartRate();
-                    Log.d("BandConnectActivity",heartrate + "bpm");
+                    classificationManager.consume(ClassificationKind.HEARTBEAT, heartrate);
+                   // Log.d("BandConnectActivity",heartrate + "bpm");
                 }
             }
         };
@@ -165,9 +173,11 @@ public class BandConnectAcitivity extends AppCompatActivity {
         }
     }
 
-    public void setConnected(boolean b) {
+    public synchronized void setConnected(boolean b) {
         connected = b;
     }
+
+    public synchronized boolean isConnected() {return connected;};
 
     public void setClient(BandClient client){
         this.client = client;
@@ -177,13 +187,10 @@ public class BandConnectAcitivity extends AppCompatActivity {
         return heartRateEventListener;
     }
 
-    public void setHeartrate(int heartrate) {
+    public synchronized void setHeartrate(int heartrate) {
         this.heartrate = heartrate;
     }
 
-    public int getHeartrate() {
-        return heartrate;
-    }
 
     /* onKeyUp method is for developing only!  Allows you to manually change the heartrate:
                     press I on keybord to simulate a calm heartrate

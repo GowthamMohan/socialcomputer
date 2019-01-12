@@ -5,14 +5,12 @@ import saarland.dfki.socialanxietytrainer.BandConnectAcitivity;
 public class HeartRateSimulator {
 
     private SimulationType type;
-    private int simulated_heartrate;
     private SimulationThread t;
     private BandConnectAcitivity activity;
 
 
     //default values
     public HeartRateSimulator() {
-        simulated_heartrate = 60;
         type = SimulationType.CALM;
     }
 
@@ -35,16 +33,7 @@ public class HeartRateSimulator {
         }
     }
 
-    public int getHeartRate() {
-        return simulated_heartrate;
-    }
-
-    public void setHeartrate(int val) {
-        simulated_heartrate = val;
-    }
-
     public SimulationType getType() { return  type; }
-
     public void setActivity(BandConnectAcitivity activity) {
         this.activity = activity;
     }

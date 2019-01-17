@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val simulator = HeartRateSimulator()
         val classificationManager = ClassificationManager()
         var dbHelper: DbHelper? = null
+        var bandConnectAcitivity: BandConnectAcitivity? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,27 +7,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.widget.Toast;
-import android.widget.TextView;
 
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind;
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager;
+import saarland.dfki.socialanxietytrainer.heartrate.BandConnectTask;
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator;
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType;
 
 
-import com.microsoft.band.UserConsent;
 import com.microsoft.band.sensors.BandHeartRateEvent;
 import com.microsoft.band.sensors.BandHeartRateEventListener;
-import com.microsoft.band.sensors.HeartRateConsentListener;
 import com.microsoft.band.BandClient;
-import com.microsoft.band.BandClientManager;
-import com.microsoft.band.BandException;
-import com.microsoft.band.BandInfo;
-import com.microsoft.band.BandIOException;
-import com.microsoft.band.ConnectionState;
-import com.microsoft.band.sensors.BandHeartRateEvent;
-import com.microsoft.band.sensors.BandHeartRateEventListener;
-import com.microsoft.band.sensors.HeartRateConsentListener;
 
 //Sources:
 //https://www.sitepoint.com/getting-started-with-microsoft-band-sdk/
@@ -37,7 +27,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     private BandClient client = null;
     private HeartRateSimulator sim;
-    public static boolean connected;
+    private boolean connected;
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
     private boolean simulate = true; //<----change here!!!
@@ -49,9 +39,12 @@ public class BandConnectAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_band_connect_acitivity);
+        setContentView(R.layout.activity_band_connect);
         sim =MainActivity.Companion.getSimulator();
         sim.setActivity(this);
+
+        MainActivity.Companion.setBandConnectAcitivity(this);
+
         classificationManager = MainActivity.Companion.getClassificationManager();
         heartRateEventListener = new BandHeartRateEventListener() {
             @Override

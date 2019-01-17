@@ -21,5 +21,17 @@ enum class AnxietyLevel {
 }
 
 enum class ClassificationKind {
-    HEARTBEAT, VOICE, QUESTIONNAIRE
+    HEARTBEAT {
+        override fun toString() = "HEARTBEAT"
+    },
+
+    VOICE {
+        override fun toString() = "VOICE"
+    },
+
+    QUESTIONNAIRE {
+        override fun toString() = "QUESTIONNAIRE"
+    };
+
+    abstract override fun toString(): String
 }

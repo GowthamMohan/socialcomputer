@@ -15,17 +15,16 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import kotlinx.android.synthetic.main.content_main.*
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
+import saarland.dfki.socialanxietytrainer.db.DbHelper
 import saarland.dfki.socialanxietytrainer.executeTasks.SetupAsyncTask
 import saarland.dfki.socialanxietytrainer.executeTasks.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val task_setup : SetupAsyncTask = SetupAsyncTask(this)
+    private val taskSetup : SetupAsyncTask = SetupAsyncTask(this)
     private var taskManager: TaskManager? = null
-
 
     private val REQUEST_PERMISSIONS = 108
     private val permissions = arrayOf(Manifest.permission.BODY_SENSORS,
@@ -34,10 +33,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-    //static simulator object to be able to access it from all actvities
     companion object {
         val simulator = HeartRateSimulator()
         val classificationManager = ClassificationManager()
+        var dbHelper: DbHelper? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
-        task_setup.execute()
+        taskSetup.execute()
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -54,6 +53,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        dbHelper = DbHelper.getInstace(this)
 
         // Permissions setup
         checkPermissions()
@@ -90,7 +91,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun getTaskManager(): TaskManager? {
         return taskManager
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.

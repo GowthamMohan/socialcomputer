@@ -1,7 +1,5 @@
 package saarland.dfki.socialanxietytrainer.questions;
 
-
-
 public class Question {
     private String question;
     private String option1;

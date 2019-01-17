@@ -1,26 +1,36 @@
-package saarland.dfki.socialanxietytrainer.questions;
+package saarland.dfki.socialanxietytrainer.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import saarland.dfki.socialanxietytrainer.questions.QuizContract.*;
-
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import saarland.dfki.socialanxietytrainer.classification.AnxietyLevel;
+import saarland.dfki.socialanxietytrainer.classification.ClassificationKind;
+import saarland.dfki.socialanxietytrainer.db.QuizContract.*;
+import saarland.dfki.socialanxietytrainer.db.TaskExecutionContract.*;
+import saarland.dfki.socialanxietytrainer.questions.Question;
 
-public class QuizDbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "InitialQuestionnaire.db";
+public class DbHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "SocialAnxietyTrainer.db";
     private static final int DATABASE_VERSION = 1;
 
     private SQLiteDatabase db;
+    private static DbHelper instace;
 
-    public QuizDbHelper(Context context) {
+    private DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static DbHelper getInstace(Context context) {
+        if (instace == null) {
+            instace = new DbHelper(context);
+        }
+        return instace;
     }
 
     @Override
@@ -38,17 +48,32 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 QuestionsTable.COLUMN_OPTION5 + " TEXT, " +
                 QuestionsTable.COLUMN_ANSWER_NR + " INTEGER" +
                 ") ";
-
-
         db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
+
+        final String SQL_CREATE_TASK_EXECUTION_TABLE = "CREATE TABLE " +
+                TaskExecutionTable.TABLE_NAME + " ( " +
+                TaskExecutionTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TaskExecutionTable.COLUMN_DATE + " TEXT, " + // TODO maybe change the type
+                TaskExecutionTable.COLUMN_HEARTBEAT + " TEXT, " +
+                TaskExecutionTable.COLUMN_VOICE + " TEXT, " +
+                TaskExecutionTable.COLUMN_RATING + " TEXT, " +
+                TaskExecutionTable.COLUMN_CLASSIFICATION_KIND + " TEXT, " +
+                TaskExecutionTable.COLUMN_CLASSIFICATION_VAL + " TEXT" +
+                ") ";
+        db.execSQL(SQL_CREATE_TASK_EXECUTION_TABLE);
+
         fillQuestionsTable();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + QuestionsTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TaskExecutionTable.TABLE_NAME);
         onCreate(db);
     }
+
+
+    /** Question utilities **/
 
     private void fillQuestionsTable() {
         /* Question q1 = new Question("A is correct", "A", "B", "C", 1);
@@ -156,5 +181,39 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
         c.close();
         return questionList;
+    }
+
+
+    /** Task execution utilities **/
+
+    /**
+     * TODO currently we do not store the classified anxiety level.
+     */
+    public void addClassificationValue(Date time, ClassificationKind c, String dataVal) {
+        addClassificationValue(time, c, dataVal, AnxietyLevel.NONE);
+    }
+
+    public void addClassificationValue(Date time, ClassificationKind c, String dataVal, AnxietyLevel cl) {
+        ContentValues cv = new ContentValues();
+        String column_val;
+        switch (c) {
+            case HEARTBEAT:
+                column_val = TaskExecutionTable.COLUMN_HEARTBEAT;
+                break;
+            case VOICE:
+                column_val = TaskExecutionTable.COLUMN_VOICE;
+                break;
+            case QUESTIONNAIRE:
+                column_val = TaskExecutionTable.COLUMN_RATING;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown classification kind.");
+        }
+        db = this.getWritableDatabase();
+        cv.put(column_val, dataVal);
+        cv.put(TaskExecutionTable.COLUMN_DATE, time.toString());
+        cv.put(TaskExecutionTable.COLUMN_CLASSIFICATION_KIND, c.toString());
+        cv.put(TaskExecutionTable.COLUMN_CLASSIFICATION_VAL, cl.toString());
+        db.insert(TaskExecutionTable.TABLE_NAME, null, cv);
     }
 }

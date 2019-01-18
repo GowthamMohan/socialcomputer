@@ -62,9 +62,12 @@ public class RestingHeartRateActivity extends AppCompatActivity {
             }
         }catch (InterruptedException e){
             showErrorMessage(-2);
+            executorService.shutdown();
         }catch (ExecutionException e){
             showErrorMessage(-2);
+            executorService.shutdown();
         }
+        executorService.shutdown();
 
     }
 

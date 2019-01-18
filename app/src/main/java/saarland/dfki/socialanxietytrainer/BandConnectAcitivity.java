@@ -172,6 +172,10 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     public synchronized boolean isConnected() {return connected;};
 
+    public synchronized int getHeartrate() {
+        return heartrate;
+    }
+
     public void setClient(BandClient client){
         this.client = client;
     }

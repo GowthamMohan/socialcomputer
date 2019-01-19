@@ -5,6 +5,7 @@
     <string name="nav_header_title">Social Anxiety Trainer</string>
     <string name="nav_header_subtitle">Overcome your social anxiety</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="score_title">Score:</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 

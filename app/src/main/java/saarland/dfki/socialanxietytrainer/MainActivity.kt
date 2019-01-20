@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_share -> {
 
             }
+            R.id.nav_score -> {
+                val intent = Intent(applicationContext, ScoreActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_settings -> {
 
             }

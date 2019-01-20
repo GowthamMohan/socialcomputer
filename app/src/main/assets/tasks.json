@@ -1,114 +1,280 @@
 {
-  "nr_categories":5,
-  "nr_levels":3,
-  "tasks_f1": [
-    {"category_text":"Talking with Strangers"},
-        {"level_1":[
-          {"description":"make eye contact with a person you would like to talk to"},
-          {"description":"smile at a stranger"},
-          {"description":"wish the cashier at your local supermarket a nice day"},
-          {"description":"visit a cafe on your own and order something "},
-          {"description":"visit the cinema on your own"}
-             ]},
-        {"level_2":[
-          {"description":"ask a stranger where the city hall is"},
-          {"description":"make a reservation for your favorite restaurant by phone call"},
-          {"description":"ask somebody where the next postbox is "},
-          {"description":"ask a stranger what the current time is"},
-          {"description":"ask the bus driver if the bus has the train station on its route"},
-          {"description":"ask someone for a tissue"}
-
-        ]},
-        {"level_3":[
-          {"description":"make a stranger a compliment about his/her clothes"},
-          {"description":"ask a stranger for a small amount of money (for example for a train ticket)"},
-          {"description":"ask somebody to take a picture of you in front of a sight (or a building of your choice)"},
-          {"description":"ask a stranger what his/her favorite restaurant is and where you can find it because you are new  in town"},
-          {"description":"try to have smalltalk with somebody you don’t know at a party"}
-
-                  ]}
-      ],
-
-
-  "tasks_f2": [
-    {"category_text":"Speaking in public/Talking with people in authority "},
-      {"level_1":[
-        {"description":"present a topic you’re interested to a group of friends"},
-        {"description":"ask an employee at a store for a discount"}
-      ]},
-      {"level_2":[
-        {"description":"ask a police officer about the way/ where you can park for free"}
-
-      ]},
-      {"level_3":[
-        {"description":"if you have to make a presentation admit that you’re nervous beforehand"},
-        {"description":"give your opinion in class/ or in a meeting"}
-
-
-      ]}],
-
-
-  "tasks_f3": [
-    {"category_text":"Interactions with the opposite sex"},
-    {"level_1":[
-      {"description":"ask a person you find attractive if you can sit next to him/her in the bus/train"},
-      {"description":"smile at an attractive stranger on the street"},
-      {"description":"ask a workmate or a fellow student you find attractive for something university or work related "},
-      {"description":"ask someone you find attractive for a pen"}
-
-
-    ]},
-    {"level_2":[
-      {"description":"buy someone you find attractive a drink (at a bar or a party)"},
-      {"description":"compliment a person you find attractive"}
-
-    ]},
-    {"level_3":[
-      {"description":"ask somebody you find attractive for a his/her number"},
-      {"description":"tell somebody you are interested in that you would like to get to know them better "},
-      {"description":"ask someone you find attractive if you want to have lunch together "}
-
-    ]
-    }],
-  "tasks_f4": [
-    {"category_text":"Critcism and embarrassment "},
-
-    {"level_1":[
-      {"description":"tell a friend in person that you want to cancel a gathering because you don’t want to go there"},
-      {"description":"drop something not valuable in front of others"},
-      {"description":"ask a friend for advice in your love life"},
-      {"description":"make a bad joke"}
-
-
-    ]},
-    {"level_2":[
-      {"description":"say that you lost your phone and ask someone that you need to make an urgent call"},
-      {"description":"eat alone in a cafeteria/restaurant"}
-
-    ]},
-    {"level_3":[
-      {"description":"ask your supervisor (teacher, lecturer) for feedback about your performance"},
-      {"description":"dance funny at a party "},
-      {"description":"ask a senseless question in class or at work and be confident about it "}
-    ]}
-  ],
-
-  "tasks_f5": [
-    {"category_text":"expression of annoyance, disgust or displeasure"},
-    {"level_1":[
-      {"description":"tell a close friend what bothers you about him/her"},
-      {"description":"decline a task you don’t want to do at work or at university"}
-    ]},
-    {"level_2":[
-      {"description":"join a new club/acitivity"}
-
-    ]},
-    {"level_3":[
-      {"description":"enforce your opinion in a project or a meeting "},
-      {"description":"start a polarizing discussion with a person you don’t know so well"},
-      {"description":"be the center of attention"}
-
-    ]}
+  "tasks": [
+    {
+      "id": 0,
+      "description": "make eye contact with a person you would like to talk to",
+      "category": "Talking with Strangers",
+      "level": 1
+    },
+    {
+      "id": 1,
+      "description": "smile at a stranger",
+      "category": "Talking with Strangers",
+      "level": 1
+    },
+    {
+      "id": 2,
+      "description": "wish the cashier at your local supermarket a nice day",
+      "category": "Talking with Strangers",
+      "level": 1
+    },
+    {
+      "id": 3,
+      "description": "visit a cafe on your own and order something ",
+      "category": "Talking with Strangers",
+      "level": 1
+    },
+    {
+      "id": 4,
+      "description": "visit the cinema on your own",
+      "category": "Talking with Strangers",
+      "level": 1
+    },
+    {
+      "id": 5,
+      "description": "ask a stranger where the city hall is",
+      "category": "Talking with Strangers",
+      "level": 2
+    },
+    {
+      "id": 6,
+      "description": "make a reservation for your favorite restaurant by phone call",
+      "category": "Talking with Strangers",
+      "level": 2
+    },
+    {
+      "id": 7,
+      "description": "ask somebody where the next postbox is",
+      "category": "Talking with Strangers",
+      "level": 2
+    },
+    {
+      "id": 8,
+      "description": "ask a stranger what the current time is",
+      "category": "Talking with Strangers",
+      "level": 2
+    },
+    {
+      "id": 9,
+      "description": "ask the bus driver if the bus has the train station on its route",
+      "category": "Talking with Strangers",
+      "level": 2
+    },
+    {
+      "id": 10,
+      "description": "ask someone for a tissue",
+      "category": "Talking with Strangers",
+      "level": 2
+    },
+    {
+      "id": 11,
+      "description": "make a stranger a compliment about his/her clothes",
+      "category": "Talking with Strangers",
+      "level": 3
+    },
+    {
+      "id": 12,
+      "description": "ask a stranger for a small amount of money (for example for a train ticket)",
+      "category": "Talking with Strangers",
+      "level": 3
+    },
+    {
+      "id": 13,
+      "description": "ask somebody to take a picture of you in front of a sight (or a building of your choice)",
+      "category": "Talking with Strangers",
+      "level": 3
+    },
+    {
+      "id": 13,
+      "description": "ask a stranger what his/her favorite restaurant is and where you can find it because you are new  in town",
+      "category": "Talking with Strangers",
+      "level": 3
+    },
+    {
+      "id": 14,
+      "description": "try to have smalltalk with somebody you don’t know at a party",
+      "category": "Talking with Strangers",
+      "level": 3
+    },
+    {
+      "id": 15,
+      "description": "present a topic you’re interested to a group of friends",
+      "category": "Speaking in public/Talking with people in authority",
+      "level": 1
+    },
+    {
+      "id": 16,
+      "description": "ask an employee at a store for a discount",
+      "category": "Speaking in public/Talking with people in authority",
+      "level": 1
+    },
+    {
+      "id": 17,
+      "description": "ask a police officer about the way/ where you can park for free",
+      "category": "Speaking in public/Talking with people in authority",
+      "level": 2
+    },
+    {
+      "id": 18,
+      "description": "if you have to make a presentation admit that you’re nervous beforehand",
+      "category": "Speaking in public/Talking with people in authority",
+      "level": 3
+    },
+    {
+      "id": 19,
+      "description": "give your opinion in class/ or in a meeting",
+      "category": "Speaking in public/Talking with people in authority",
+      "level": 3
+    },
+    {
+      "id": 20,
+      "description": "ask a person you find attractive if you can sit next to him/her in the bus/train",
+      "category": "Interactions with the opposite sex",
+      "level": 1
+    },
+    {
+      "id": 21,
+      "description": "smile at an attractive stranger on the street",
+      "category": "Interactions with the opposite sex",
+      "level": 1
+    },
+    {
+      "id": 22,
+      "description": "smile at an attractive stranger on the street",
+      "category": "Interactions with the opposite sex",
+      "level": 1
+    },
+    {
+      "id": 23,
+      "description": "ask a workmate or a fellow student you find attractive for something university or work related ",
+      "category": "Interactions with the opposite sex",
+      "level": 1
+    },
+    {
+      "id": 24,
+      "description": "ask someone you find attractive for a pen",
+      "category": "Interactions with the opposite sex",
+      "level": 1
+    },
+    {
+      "id": 25,
+      "description": "buy someone you find attractive a drink (at a bar or a party)",
+      "category": "Interactions with the opposite sex",
+      "level": 2
+    },
+    {
+      "id": 26,
+      "description": "compliment a person you find attractive",
+      "category": "Interactions with the opposite sex",
+      "level": 2
+    },
+    {
+      "id": 27,
+      "description": "ask somebody you find attractive for a his/her number",
+      "category": "Interactions with the opposite sex",
+      "level": 3
+    },
+    {
+      "id": 28,
+      "description": "tell somebody you are interested in that you would like to get to know them better ",
+      "category": "Interactions with the opposite sex",
+      "level": 3
+    },
+    {
+      "id": 29,
+      "description": "ask someone you find attractive if you want to have lunch together ",
+      "category": "Interactions with the opposite sex",
+      "level": 3
+    },
+    {
+      "id": 30,
+      "description": "tell a friend in person that you want to cancel a gathering because you don’t want to go there",
+      "category": "Criticism and embarrassment",
+      "level": 1
+    },
+    {
+      "id": 31,
+      "description": "drop something not valuable in front of others",
+      "category": "Criticism and embarrassment",
+      "level": 1
+    },
+    {
+      "id": 32,
+      "description": "ask a friend for advice in your love life",
+      "category": "Criticism and embarrassment",
+      "level": 1
+    },
+    {
+      "id": 33,
+      "description": "make a bad joke",
+      "category": "Criticism and embarrassment",
+      "level": 1
+    },
+    {
+      "id": 34,
+      "description": "say that you lost your phone and ask someone that you need to make an urgent call",
+      "category": "Criticism and embarrassment",
+      "level": 2
+    },
+    {
+      "id": 35,
+      "description": "eat alone in a cafeteria/restaurant",
+      "category": "Criticism and embarrassment",
+      "level": 2
+    },
+    {
+      "id": 36,
+      "description": "ask your supervisor (teacher, lecturer) for feedback about your performance",
+      "category": "Criticism and embarrassment",
+      "level": 3
+    },
+    {
+      "id": 37,
+      "description": "dance in a funny way at a party",
+      "category": "Criticism and embarrassment",
+      "level": 3
+    },
+    {
+      "id": 38,
+      "description": "ask a senseless question in class or at work and be confident about it",
+      "category": "Criticism and embarrassment",
+      "level": 3
+    },
+    {
+      "id": 39,
+      "description": "tell a close friend what bothers you about him/her",
+      "category": "Expression of annoyance, disgust or displeasure",
+      "level": 1
+    },
+    {
+      "id": 40,
+      "description": "decline a task you don’t want to do at work or at university",
+      "category": "Expression of annoyance, disgust or displeasure",
+      "level": 1
+    },
+    {
+      "id": 41,
+      "description": "join a new club/activity",
+      "category": "Expression of annoyance, disgust or displeasure",
+      "level": 2
+    },
+    {
+      "id": 42,
+      "description": "enforce your opinion in a project or a meeting",
+      "category": "Expression of annoyance, disgust or displeasure",
+      "level": 3
+    },
+    {
+      "id": 43,
+      "description": "start a polarizing discussion with a person you don’t know so well",
+      "category": "Expression of annoyance, disgust or displeasure",
+      "level": 3
+    },
+    {
+      "id": 44,
+      "description": "be the center of attention",
+      "category": "Expression of annoyance, disgust or displeasure",
+      "level": 3
+    }
   ]
-
 }

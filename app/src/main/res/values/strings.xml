@@ -90,4 +90,7 @@
     <string name="title_activity_task_selction">Select a Task</string>
     <string name="textView_curr_anxiety_level">Current anxiety level:</string>
     <string name="title_quiz_activity">Questionnaire</string>
+
+    <!-- Strings for shared preferences -->
+    <string name="shared_preferences">shared</string>
 </resources>

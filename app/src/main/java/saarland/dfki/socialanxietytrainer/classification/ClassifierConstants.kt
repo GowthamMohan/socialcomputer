@@ -18,6 +18,12 @@ enum class AnxietyLevel {
     };
 
     abstract override fun toString(): String
+
+    companion object {
+        fun fromString(s: String): AnxietyLevel {
+            return valueOf(s)
+        }
+    }
 }
 
 enum class ClassificationKind {

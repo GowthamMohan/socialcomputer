@@ -29,18 +29,15 @@ public class RestingHeartRateActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resting_heart_rate);
+
         sharedPreferences = getSharedPreferences("saarland.dfki.socialanxietytrainer.heartrate_preferences", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         bandConnectAcitivity = MainActivity.Companion.getBandConnectAcitivity();
         //----------------------------------------------------------------------------------------------------------------------------
         if(bandConnectAcitivity == null || !bandConnectAcitivity.isConnected()) {
            showErrorMessage(-1);
-            try{
-                Thread.sleep(3000);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            super.onBackPressed();
+          Intent intent = new Intent(RestingHeartRateActivity.this,BandConnectAcitivity.class);
+          startActivity(intent);
         }
        //-----------------------------------------------------------------------------------------------------------------------------
     }
@@ -49,7 +46,7 @@ public class RestingHeartRateActivity extends AppCompatActivity {
     //onClick
     public void trackRestingHeartRate(View v) {
         //duration: 60s
-        GetRestingHeartRateTask getRestingHeartRateTask = new GetRestingHeartRateTask(60000);
+        GetRestingHeartRateTask getRestingHeartRateTask = new GetRestingHeartRateTask(30000);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> result = executorService.submit(getRestingHeartRateTask);
         try{
@@ -75,31 +72,20 @@ public class RestingHeartRateActivity extends AppCompatActivity {
         restingHeartRate = result;
         editor.putInt("RestingHeartRate",restingHeartRate);
         editor.commit();
-        updateTextView();
+       // updateTextView();
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(),"Finished.", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"Finished. Resting Heart Rate: " + restingHeartRate, Toast.LENGTH_LONG).show();
             }
         });
-        try{
-            Thread.sleep(3000);
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }
-        super.onBackPressed();
+
+        Intent intent = new Intent(RestingHeartRateActivity.this,BandConnectAcitivity.class);
+        startActivity(intent);
+
     }
 
-
-    public void updateTextView() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TextView textView = findViewById(R.id.textView_display_resting_hr);
-                textView.setText(textView.getText() + " " + restingHeartRate);
-            }
-        });
-    }
 
 
     public void showErrorMessage(int errorCode) {

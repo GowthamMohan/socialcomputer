@@ -124,7 +124,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
             * */
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
         //don't react if no simulated watch is connected
-        if (!BandConnectAcitivity.connected) {
+        if (!MainActivity.bandConnectAcitivity!!.isConnected) {
             return super.onKeyUp(keyCode, event)
         }
         //kept general to be able to copy it everywhere

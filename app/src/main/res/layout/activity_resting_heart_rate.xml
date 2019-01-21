@@ -27,19 +27,19 @@
         android:onClick="trackRestingHeartRate"
         android:paddingBottom="100dp"
         android:src="@drawable/ic_play_arrow_black"
-        app:layout_constraintBottom_toTopOf="@+id/textView_display_resting_hr"
+        app:layout_constraintBottom_toTopOf="@+id/textView_display_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_desc_hr" />
 
     <TextView
-        android:id="@+id/textView_display_resting_hr"
+        android:id="@+id/textView_display_time"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:text="@string/resting_hr_res"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

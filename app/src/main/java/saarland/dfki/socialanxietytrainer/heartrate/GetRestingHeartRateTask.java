@@ -1,5 +1,6 @@
 package saarland.dfki.socialanxietytrainer.heartrate;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class GetRestingHeartRateTask implements Callable<Integer> {
     private int counter;
 
 
+
     public GetRestingHeartRateTask(long duration) {
         this.start_time = System.currentTimeMillis();
         this.duration = duration;
         this.added_values = 0;
         this.counter = 0;
         this.bandConnectAcitivity = MainActivity.Companion.getBandConnectAcitivity();
+
 
     }
 

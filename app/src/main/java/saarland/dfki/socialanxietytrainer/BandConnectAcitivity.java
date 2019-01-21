@@ -104,7 +104,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_SHORT).show();
                 }
             });
-            requestRestingHeartRate();
+           requestRestingHeartRate();
         }
         else {
             runOnUiThread(new Runnable() {
@@ -204,9 +204,10 @@ public class BandConnectAcitivity extends AppCompatActivity {
             return;
         }
         else {
+
             Intent intent = new Intent(BandConnectAcitivity.this,RestingHeartRateActivity.class);
             startActivity(intent);
-        }
+       }
     }
 
     public int getRestingHeartRate() {

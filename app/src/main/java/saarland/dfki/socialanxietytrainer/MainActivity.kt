@@ -17,8 +17,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
 import saarland.dfki.socialanxietytrainer.db.DbHelper
-import saarland.dfki.socialanxietytrainer.executeTasks.SetupAsyncTask
-import saarland.dfki.socialanxietytrainer.executeTasks.TaskManager
+import saarland.dfki.socialanxietytrainer.task.SetupAsyncTask
+import saarland.dfki.socialanxietytrainer.task.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_share -> {
 
+            }
+            R.id.nav_score -> {
+                val intent = Intent(applicationContext, ScoreActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_settings -> {
 

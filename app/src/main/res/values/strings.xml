@@ -5,6 +5,7 @@
     <string name="nav_header_title">Social Anxiety Trainer</string>
     <string name="nav_header_subtitle">Overcome your social anxiety</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="score_title">Score:</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 
@@ -92,5 +93,7 @@
     <string name="resting_hr">You have not set your resting heart rate yet. Press start to track your resting heart rate.
         This will take 30 seconds and helps to improve the accuracy of your anxiety level.
     </string>
-    <string name="resting_hr_res">Your resting heart rate:</string>
+
+    <!-- Strings for shared preferences -->
+    <string name="shared_preferences">shared</string>
 </resources>

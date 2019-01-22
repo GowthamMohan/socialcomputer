@@ -14,15 +14,14 @@ import saarland.dfki.socialanxietytrainer.audioanalysis.BasePipelineRunner
 import saarland.dfki.socialanxietytrainer.audioanalysis.EmoVoicePipelineRunner
 import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLineExecutor
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
-import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
-import saarland.dfki.socialanxietytrainer.executeTasks.ExecuteTaskWatcher
+import saarland.dfki.socialanxietytrainer.task.ExecuteTaskWatcher
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
 class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivity() {
 
     private lateinit var category: String
     private lateinit var description: String
-    private var difficulty: Int = 0
+    private var level: Int = 0
     private var id: Int = 0
 
     private lateinit var _pipe: BasePipelineRunner
@@ -38,7 +37,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         var intent = intent
         this.category = intent.getStringExtra("category")
         this.description = intent.getStringExtra("description")
-        this.difficulty = intent.getStringExtra("difficulty").toInt()
+        this.level = intent.getStringExtra("level").toInt()
         this.id = intent.getStringExtra("id").toInt()
 
         findViewById<TextView>(R.id.textView_task_category).text = "Category: ${this.category}"

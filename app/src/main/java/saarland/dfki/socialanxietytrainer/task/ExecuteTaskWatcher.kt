@@ -1,4 +1,4 @@
-package saarland.dfki.socialanxietytrainer.executeTasks
+package saarland.dfki.socialanxietytrainer.task
 
 import android.app.Activity
 import android.widget.TextView

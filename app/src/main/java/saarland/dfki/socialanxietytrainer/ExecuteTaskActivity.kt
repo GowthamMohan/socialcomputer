@@ -1,5 +1,6 @@
 package saarland.dfki.socialanxietytrainer
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -84,6 +85,9 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
             _pipe.terminate()
             executeTaskWatcher.terminate()
             btn.setImageResource(R.drawable.ic_play_arrow_black)
+
+            val intent = Intent(this@ExecuteTaskActivity, RatingActivity::class.java)
+            startActivity(intent)
         }
     }
 

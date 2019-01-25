@@ -128,7 +128,16 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
     }
 
     private fun classifyQuestionnaire(value: Any): AnxietyLevel {
-        TODO("not implemented")
+        assert(value is Float)
+        assert(value in 1 .. 10)
+        val rating = value as Float
+
+        return when {
+            rating <= 3.3 -> AnxietyLevel.HIGH
+            rating <= 6.6 -> AnxietyLevel.MILD
+            else -> AnxietyLevel.LOW
+        }
+
     }
 
 }

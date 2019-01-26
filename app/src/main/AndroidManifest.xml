@@ -42,6 +42,25 @@
         <activity android:name=".ExecuteTaskActivity" />
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".ScoreActivity" />
+
+        <!-- Notification -->
+
+        <receiver android:name=".reminder.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".reminder.AlarmNotificationReceiver"/>
+
+        <service
+            android:name=".reminder.NotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
+
     </application>
 
 </manifest>

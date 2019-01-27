@@ -47,27 +47,27 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ScoreActivity" />
         <activity android:name=".ShareActivity" />
-        <activity android:name=".Settings"></activity>
-        <activity android:name=".Help">
-            
-            <!-- Notification -->
-            
-            <receiver android:name=".reminder.BootReceiver"
-                android:enabled="true"
-                android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.BOOT_COMPLETED" />
-                    
-                    <category android:name="android.intent.category.HOME" />
-                </intent-filter>
-            </receiver>
-            <receiver android:name=".reminder.AlarmNotificationReceiver"/>
-            
-            <service
-                android:name=".reminder.NotificationService"
-                android:enabled="true"
-                android:exported="true"></service>
-
+        <activity android:name=".Settings" />
+        <activity android:name=".Help" />
+        <activity android:name=".Demo"></activity>
+        
+        <!-- Notification -->
+        
+        <receiver android:name=".reminder.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".reminder.AlarmNotificationReceiver"/>
+        
+        <service
+            android:name=".reminder.NotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
-    
+
 </manifest>

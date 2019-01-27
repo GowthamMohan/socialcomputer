@@ -45,6 +45,8 @@
         android:layout_marginStart="26dp"
         android:text="@string/textView_curr_anxiety_level" />
 
+    
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_start_stop_task"
         android:layout_width="wrap_content"

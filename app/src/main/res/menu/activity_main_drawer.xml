@@ -25,6 +25,10 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Settings" />
         <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="Help" />
+        <item
             android:id="@+id/nav_connect"
             android:icon="@drawable/ic_sync_black_24dp"
             android:title="Connect Smartwatch" />

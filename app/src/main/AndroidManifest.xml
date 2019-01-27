@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.microsoft.band.service.access.BIND_BAND_SERVICE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -46,10 +47,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ScoreActivity" />
         <activity android:name=".ShareActivity" />
-        <activity android:name=".Settings"></activity>
-        <activity android:name=".Help">
-
-        </activity>
+        <activity android:name=".Settings" />
+        <activity android:name=".Help" />
+        <activity android:name=".Demo"></activity>
     </application>
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+
 </manifest>

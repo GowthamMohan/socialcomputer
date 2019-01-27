@@ -127,6 +127,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(applicationContext, Help::class.java)
                 startActivity(intent)
             }
+            R.id.nav_demo -> {
+                val intent = Intent(applicationContext, Demo::class.java)
+                startActivity(intent)
+            }
+
             //open Activity to connect Microsoft Band
             R.id.nav_connect -> {
                 val intent = Intent(

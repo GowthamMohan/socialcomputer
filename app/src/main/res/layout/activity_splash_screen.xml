@@ -6,26 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".SplashScreenActivity">
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"
-        android:text="Social Anxiety Trainer"
-        android:textSize="30dp"
-        android:textStyle="italic"
-        android:textColor="#3cb371"
-        />
-
     <ImageView
-        android:id="@+id/imageView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
-        app:srcCompat="@drawable/side_nav_bar" />
+        android:src="@mipmap/social_round"/>
+
+
 </RelativeLayout>

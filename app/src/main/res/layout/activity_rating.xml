@@ -38,7 +38,7 @@
         android:layout_height="18dp"
         android:numStars="10"
         android:stepSize="1"
-        android:progressTint="@color/colorAccent"
+        android:progressTint="#c242f4"
         android:rating="5"
         android:isIndicator="false"
         app:layout_constraintBottom_toTopOf="@+id/button_submit"

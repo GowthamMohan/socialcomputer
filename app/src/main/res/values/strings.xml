@@ -93,7 +93,7 @@
     <string name="resting_hr">You have not set your resting heart rate yet. Press start to track your resting heart rate.
         This will take 30 seconds and helps to improve the accuracy of your anxiety level.
     </string>
-    <string name="rating_string">How comfortable did you feel during the task from 1 (not comfortable at all) to 10 (perfectly comfortable)?</string>
+    <string name="rating_string">How comfortable did you feel during the task from 1 (very uncomfortable) to 10 (very comfortable)?</string>
     <string name="finished_string">Congratulations! You finished the task!</string>
     <string name="submit">submit</string>
 

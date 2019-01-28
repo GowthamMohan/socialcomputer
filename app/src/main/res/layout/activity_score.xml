@@ -3,11 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient_list"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView_score"
-        android:layout_width="55dp"
-        android:layout_height="30dp"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="120dp"
+        android:textSize="45dp"
         android:text="@string/score_title" />
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="90dp"
+        android:src="@mipmap/score_round"/>
 </RelativeLayout>

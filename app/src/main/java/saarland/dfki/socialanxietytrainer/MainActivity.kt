@@ -1,5 +1,6 @@
 package saarland.dfki.socialanxietytrainer
 
+import android.app.AlarmManager
 import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -14,17 +15,29 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.AnimationDrawable
 import android.os.Build
+import android.support.constraint.ConstraintLayout
+import kotlinx.android.synthetic.main.fragment_statistics.view.*
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager
 import saarland.dfki.socialanxietytrainer.db.DbHelper
 import saarland.dfki.socialanxietytrainer.task.SetupAsyncTask
 import saarland.dfki.socialanxietytrainer.task.TaskManager
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator
+import android.app.PendingIntent
+import android.content.Context
+import java.util.*
+import saarland.dfki.socialanxietytrainer.reminder.AlarmNotificationReceiver
+import saarland.dfki.socialanxietytrainer.reminder.NotificationService
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val taskSetup : SetupAsyncTask = SetupAsyncTask(this)
     private var taskManager: TaskManager? = null
+
+    private var constraintLayout: ConstraintLayout? = null
+
 
     private val REQUEST_PERMISSIONS = 108
     private val permissions = arrayOf(Manifest.permission.BODY_SENSORS,
@@ -48,6 +61,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
         taskSetup.execute()
 
+        constraintLayout = findViewById(R.id.layout)
+
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -56,6 +71,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         dbHelper = DbHelper.getInstace(this)
+
+        // Setup notification service
+        setupNotifications()
 
         // Permissions setup
         checkPermissions()
@@ -85,6 +103,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        }
 //    }
 
+    private fun setupNotifications() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val myIntent = Intent(this@MainActivity, AlarmNotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, NotificationService.HOUR)
+            calendar.set(Calendar.MINUTE, NotificationService.MIN)
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    AlarmManager.INTERVAL_DAY,
+                    pendingIntent)
+        } else {
+            val date = Date()
+            date.hours = NotificationService.HOUR
+            date.minutes = NotificationService.MIN
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                date.time,
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent)
+        }
+
+    }
+
     fun setTaskManager(taskManager: TaskManager) {
         this.taskManager = taskManager
     }
@@ -105,15 +148,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.nav_share -> {
-
+                val intent = Intent(applicationContext, ShareActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_score -> {
                 val intent = Intent(applicationContext, ScoreActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_settings -> {
-
+                val intent = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(intent)
             }
+            R.id.nav_help -> {
+                val intent = Intent(applicationContext, Help::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_demo -> {
+                val intent = Intent(applicationContext, Demo::class.java)
+                startActivity(intent)
+            }
+
             //open Activity to connect Microsoft Band
             R.id.nav_connect -> {
                 val intent = Intent(

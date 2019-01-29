@@ -1,5 +1,13 @@
 package saarland.dfki.socialanxietytrainer.classification
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.support.v4.content.ContextCompat.startActivity
+import com.estimote.sdk.cloud.internal.ApiUtils.getSharedPreferences
+import saarland.dfki.socialanxietytrainer.MainActivity
+import saarland.dfki.socialanxietytrainer.RestingHeartRateActivity
+
 /**
  * More like a real-time classifier
  * TODO
@@ -23,6 +31,8 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
     private val weightMap_AnxietyLevel = hashMapOf(AnxietyLevel.LOW to 0.33,
             AnxietyLevel.MILD to 0.33,
             AnxietyLevel.HIGH to 0.33)
+
+    private  var sharedPreferences: SharedPreferences? = null
 
     override fun classifyCurrentAnxietyLevel(classifierData: List<Pair<ClassificationKind, Any>>): AnxietyLevel {
         assert(classifierData.size <= ClassificationKind.values().size)
@@ -69,9 +79,13 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
         assert(value is Int)
         assert(value in 0 .. 220)
         val heartrate = value as Int
+        var restingHeartRate = MainActivity.bandConnectAcitivity!!.restingHeartRate
+        if(restingHeartRate == -1) {
+            restingHeartRate = 60 //default value because not set yet
+        }
         return when {
-            heartrate  <= 80 -> AnxietyLevel.LOW
-            heartrate in 81 .. 110 -> AnxietyLevel.MILD
+            heartrate  <= restingHeartRate + 20 -> AnxietyLevel.LOW
+            heartrate in restingHeartRate + 21 .. restingHeartRate + 40 -> AnxietyLevel.MILD
             else -> AnxietyLevel.HIGH
         }
 
@@ -114,7 +128,16 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
     }
 
     private fun classifyQuestionnaire(value: Any): AnxietyLevel {
-        TODO("not implemented")
+        assert(value is Float)
+        assert(value in 1 .. 10)
+        val rating = value as Float
+
+        return when {
+            rating <= 3.3 -> AnxietyLevel.HIGH
+            rating <= 6.6 -> AnxietyLevel.MILD
+            else -> AnxietyLevel.LOW
+        }
+
     }
 
 }

@@ -1,4 +1,4 @@
-package saarland.dfki.socialanxietytrainer;
+package saarland.dfki.socialanxietytrainer.heartrate;
 
 import android.os.AsyncTask;
 import android.util.Log;

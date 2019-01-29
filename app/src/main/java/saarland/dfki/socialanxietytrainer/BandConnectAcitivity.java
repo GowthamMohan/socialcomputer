@@ -1,5 +1,7 @@
 package saarland.dfki.socialanxietytrainer;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -7,27 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.widget.Toast;
-import android.widget.TextView;
 
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind;
 import saarland.dfki.socialanxietytrainer.classification.ClassificationManager;
+import saarland.dfki.socialanxietytrainer.heartrate.BandConnectTask;
 import saarland.dfki.socialanxietytrainer.heartrate.HeartRateSimulator;
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType;
 
 
-import com.microsoft.band.UserConsent;
 import com.microsoft.band.sensors.BandHeartRateEvent;
 import com.microsoft.band.sensors.BandHeartRateEventListener;
-import com.microsoft.band.sensors.HeartRateConsentListener;
 import com.microsoft.band.BandClient;
-import com.microsoft.band.BandClientManager;
-import com.microsoft.band.BandException;
-import com.microsoft.band.BandInfo;
-import com.microsoft.band.BandIOException;
-import com.microsoft.band.ConnectionState;
-import com.microsoft.band.sensors.BandHeartRateEvent;
-import com.microsoft.band.sensors.BandHeartRateEventListener;
-import com.microsoft.band.sensors.HeartRateConsentListener;
 
 //Sources:
 //https://www.sitepoint.com/getting-started-with-microsoft-band-sdk/
@@ -37,7 +29,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     private BandClient client = null;
     private HeartRateSimulator sim;
-    public static boolean connected;
+    private boolean connected;
     private int heartrate;
     private BandHeartRateEventListener heartRateEventListener;
     private boolean simulate = true; //<----change here!!!
@@ -46,12 +38,14 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_band_connect_acitivity);
+        setContentView(R.layout.activity_band_connect);
         sim =MainActivity.Companion.getSimulator();
         sim.setActivity(this);
+        MainActivity.Companion.setBandConnectAcitivity(this);
         classificationManager = MainActivity.Companion.getClassificationManager();
         heartRateEventListener = new BandHeartRateEventListener() {
             @Override
@@ -66,56 +60,17 @@ public class BandConnectAcitivity extends AppCompatActivity {
     }
 
     public void connect(View v) {
-        //simulation
         if(simulate) {
-            if(!connected) {
-                sim.simulateHeartRate(SimulationType.CALM);
-                connected = true;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Already connected.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
+           connectSimulator(v);
         }
-        //real microsoft band
         else {
             connectMicrosotBand(v);
         }
 
     }
     public void disconnect(View v) {
-        //simulation
         if (simulate) {
-            if (connected) {
-                sim.stopSimulation();
-                connected = false;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Disconnected.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Nothing to disconnect.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }
-        //real microsoft band
+           disconnectSimulator(v);        }
         else {
             disconnectMicrosoftBand(v);
         }
@@ -126,6 +81,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
         if (!connected) {
             BandConnectTask task = new BandConnectTask(this);
             task.execute();
+            requestRestingHeartRate();
         }
         else {
             runOnUiThread(new Runnable() {
@@ -136,6 +92,30 @@ public class BandConnectAcitivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    public void connectSimulator(View v) {
+        if(!connected) {
+            sim.simulateHeartRate(SimulationType.CALM);
+            connected = true;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Connected.", Toast.LENGTH_SHORT).show();
+                }
+            });
+           requestRestingHeartRate();
+        }
+        else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Already connected.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
     }
 
     public void disconnectMicrosoftBand(View v) {
@@ -173,11 +153,35 @@ public class BandConnectAcitivity extends AppCompatActivity {
         }
     }
 
+    public void disconnectSimulator(View v) {
+        if (connected) {
+            sim.stopSimulation();
+            connected = false;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Disconnected.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Nothing to disconnect.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     public synchronized void setConnected(boolean b) {
         connected = b;
     }
 
     public synchronized boolean isConnected() {return connected;};
+
+    public synchronized int getHeartrate() {
+        return heartrate;
+    }
 
     public void setClient(BandClient client){
         this.client = client;
@@ -189,6 +193,26 @@ public class BandConnectAcitivity extends AppCompatActivity {
 
     public synchronized void setHeartrate(int heartrate) {
         this.heartrate = heartrate;
+    }
+
+    public boolean isRestingHeartRateSet() {
+        return getRestingHeartRate() != -1;
+    }
+
+    public void requestRestingHeartRate() {
+        if(isRestingHeartRateSet()) {
+            return;
+        }
+        else {
+
+            Intent intent = new Intent(BandConnectAcitivity.this,RestingHeartRateActivity.class);
+            startActivity(intent);
+       }
+    }
+
+    public int getRestingHeartRate() {
+        //return getSharedPreferences("saarland.dfki.socialanxietytrainer.heartrate_preferences", Context.MODE_PRIVATE).getInt("RestingHeartRate",-1);
+        return Preferences.Companion.getRestingHeartRate(this);
     }
 
 

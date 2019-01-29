@@ -46,6 +46,8 @@
             android:label="@string/title_activity_statistics"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ScoreActivity" />
+        <activity android:name=".RestingHeartRateActivity"></activity>
+        <activity android:name=".RatingActivity"></activity>
         <activity android:name=".ShareActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".Help" />

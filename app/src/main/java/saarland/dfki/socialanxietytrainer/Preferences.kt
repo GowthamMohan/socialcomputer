@@ -27,6 +27,7 @@ class Preferences {
                     c.getString(R.string.shared_preferences), Context.MODE_PRIVATE)
             val editor = settings.edit()
             editor.putInt(SCORE_PREFS_NAME, score)
+            editor.commit()
         }
 
         //resting heart rate
@@ -41,7 +42,7 @@ class Preferences {
                     c.getString(R.string.shared_preferences), Context.MODE_PRIVATE)
             val editor = shared_preferences.edit()
             editor.putInt(RESTING_HEART_RATE, resting_heart_rate)
-            editor.apply()
+            editor.commit()
         }
 
         fun updateScoreLabel(a: Activity, score: Int) {
@@ -71,6 +72,7 @@ class Preferences {
                     c.getString(R.string.shared_preferences), Context.MODE_PRIVATE)
             val editor = settings.edit()
             editor.putString(ANXIETY_LEVEL_PREFS_NAME, level.toString())
+            editor.commit()
         }
 
 

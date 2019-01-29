@@ -30,8 +30,6 @@ public class RestingHeartRateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resting_heart_rate);
 
-        sharedPreferences = getSharedPreferences("saarland.dfki.socialanxietytrainer.heartrate_preferences", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         bandConnectAcitivity = MainActivity.Companion.getBandConnectAcitivity();
         //----------------------------------------------------------------------------------------------------------------------------
         if(bandConnectAcitivity == null || !bandConnectAcitivity.isConnected()) {
@@ -70,9 +68,7 @@ public class RestingHeartRateActivity extends AppCompatActivity {
 
     public void processResult(int result) {
         restingHeartRate = result;
-        editor.putInt("RestingHeartRate",restingHeartRate);
-        editor.commit();
-       // updateTextView();
+        Preferences.Companion.setRestingHeartRate(this,restingHeartRate);
 
         runOnUiThread(new Runnable() {
             @Override

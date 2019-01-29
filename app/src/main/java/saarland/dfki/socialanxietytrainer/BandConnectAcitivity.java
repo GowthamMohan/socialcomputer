@@ -211,7 +211,8 @@ public class BandConnectAcitivity extends AppCompatActivity {
     }
 
     public int getRestingHeartRate() {
-        return getSharedPreferences("saarland.dfki.socialanxietytrainer.heartrate_preferences", Context.MODE_PRIVATE).getInt("RestingHeartRate",-1);
+        //return getSharedPreferences("saarland.dfki.socialanxietytrainer.heartrate_preferences", Context.MODE_PRIVATE).getInt("RestingHeartRate",-1);
+        return Preferences.Companion.getRestingHeartRate(this);
     }
 
 

@@ -32,6 +32,8 @@
         <activity
             android:name=".BandConnectAcitivity"
             android:label="@string/title_activity_microsoft_band" />
+        <activity android:name=".SelectGenderActivity"
+            android:label="Select Your Gender"/>
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,8 +48,10 @@
             android:label="@string/title_activity_statistics"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ScoreActivity" />
-        <activity android:name=".RestingHeartRateActivity"></activity>
-        <activity android:name=".RatingActivity"></activity>
+        <activity android:name=".RestingHeartRateActivity"
+            android:label="Get Your Resting Heart Rate"></activity>
+        <activity android:name=".RatingActivity"
+            android:label="Rate Your Comfortableness"></activity>
         <activity android:name=".ShareActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".Help" />

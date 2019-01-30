@@ -10,7 +10,15 @@ class Preferences {
     companion object {
         private const val SCORE_PREFS_NAME = "score"
         private const val ANXIETY_LEVEL_PREFS_NAME = "score"
-        private const val RESTING_HEART_RATE = "resting_heart_rate"
+        private const val RESTING_HEART_RATE_NAME = "resting_heart_rate"
+        private const val GENDER_NAME = "gender"
+
+        private const val ANXIETY_LEVEL_CATETORY_1_NAME = "anxiety_level_category_1"
+        private const val ANXIETY_LEVEL_CATETORY_2_NAME = "anxiety_level_category_2"
+        private const val ANXIETY_LEVEL_CATETORY_3_NAME = "anxiety_level_category_3"
+        private const val ANXIETY_LEVEL_CATETORY_4_NAME = "anxiety_level_category_4"
+        private const val ANXIETY_LEVEL_CATETORY_5_NAME = "anxiety_level_category_5"
+
 
 
         /** Score **/
@@ -33,17 +41,95 @@ class Preferences {
         /** resting heart rate **/
 
         fun getRestingHeartRate(c: Context): Int {
-            val resting_heart_rate = c.getSharedPreferences(c.getString(R.string.shared_preferences), Context.MODE_PRIVATE).getInt(RESTING_HEART_RATE, -1);
+            val resting_heart_rate = c.getSharedPreferences("shared", Context.MODE_PRIVATE).getInt(RESTING_HEART_RATE_NAME, -1);
             return resting_heart_rate
         }
 
-            val shared_preferences = c.getSharedPreferences(
         fun setRestingHeartRate(c: Context, resting_heart_rate: Int) {
-                    c.getString(R.string.shared_preferences), Context.MODE_PRIVATE)
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
             val editor = shared_preferences.edit()
-            editor.putInt(RESTING_HEART_RATE, resting_heart_rate)
+            editor.putInt(RESTING_HEART_RATE_NAME, resting_heart_rate)
             editor.commit()
         }
+
+        /** set anxiety levels for categories **/
+
+
+        fun setAnxietyLevelCategory1(c:Context,level:AnxietyLevel) {
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
+            val editor = shared_preferences.edit()
+            editor.putString(ANXIETY_LEVEL_CATETORY_1_NAME, level.toString())
+            editor.commit()
+
+        }
+        fun setAnxietyLevelCategory2(c:Context,level:AnxietyLevel) {
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
+            val editor = shared_preferences.edit()
+            editor.putString(ANXIETY_LEVEL_CATETORY_1_NAME, level.toString())
+            editor.commit()
+
+        }
+        fun setAnxietyLevelCategory3(c:Context,level:AnxietyLevel) {
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
+            val editor = shared_preferences.edit()
+            editor.putString(ANXIETY_LEVEL_CATETORY_1_NAME, level.toString())
+            editor.commit()
+
+        }
+        fun setAnxietyLevelCategory4(c:Context,level:AnxietyLevel) {
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
+            val editor = shared_preferences.edit()
+            editor.putString(ANXIETY_LEVEL_CATETORY_1_NAME, level.toString())
+            editor.commit()
+
+        }
+        fun setAnxietyLevelCategory5(c:Context,level:AnxietyLevel) {
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
+            val editor = shared_preferences.edit()
+            editor.putString(ANXIETY_LEVEL_CATETORY_1_NAME, level.toString())
+            editor.commit()
+
+        }
+
+        /** get anxiety levels for categories **/
+
+        fun getAnxietyLevelCatgeory1(c:Context): AnxietyLevel {
+            val anxietyLevel = c.getSharedPreferences("shared",Context.MODE_PRIVATE).getString(ANXIETY_LEVEL_CATETORY_1_NAME,"None")?: "None"
+            return AnxietyLevel.fromString(anxietyLevel)
+        }
+        fun getAnxietyLevelCatgeory2(c:Context): AnxietyLevel {
+            val anxietyLevel = c.getSharedPreferences("shared",Context.MODE_PRIVATE).getString(ANXIETY_LEVEL_CATETORY_2_NAME,"None")?: "None"
+            return AnxietyLevel.fromString(anxietyLevel)
+        }
+        fun getAnxietyLevelCatgeory3(c:Context): AnxietyLevel {
+            val anxietyLevel = c.getSharedPreferences("shared",Context.MODE_PRIVATE).getString(ANXIETY_LEVEL_CATETORY_3_NAME,"None")?: "None"
+            return AnxietyLevel.fromString(anxietyLevel)
+        }
+        fun getAnxietyLevelCatgeory4(c:Context): AnxietyLevel {
+            val anxietyLevel = c.getSharedPreferences("shared",Context.MODE_PRIVATE).getString(ANXIETY_LEVEL_CATETORY_4_NAME,"None")?: "None"
+            return AnxietyLevel.fromString(anxietyLevel)
+        }
+        fun getAnxietyLevelCatgeory5(c:Context): AnxietyLevel {
+            val anxietyLevel = c.getSharedPreferences("shared",Context.MODE_PRIVATE).getString(ANXIETY_LEVEL_CATETORY_5_NAME,"None")?: "None"
+            return AnxietyLevel.fromString(anxietyLevel)
+        }
+
+
+        /** gender **/
+        fun getGender(c:Context): String {
+            val gender = c.getSharedPreferences("shared",Context.MODE_PRIVATE).getString(GENDER_NAME,"None");
+            return gender;
+        }
+
+        fun setGender(c:Context, gender:String) {
+            assert(gender == "Female"|| gender == "Male")
+            val shared_preferences = c.getSharedPreferences("shared", Context.MODE_PRIVATE)
+            val editor = shared_preferences.edit()
+            editor.putString(GENDER_NAME, gender)
+            editor.commit()
+        }
+
+
         fun updateScoreLabel(a: Activity, score: Int) {
             setScore(a.applicationContext, score)
             val scoreLabel = a.findViewById<TextView>(R.id.textView_score)

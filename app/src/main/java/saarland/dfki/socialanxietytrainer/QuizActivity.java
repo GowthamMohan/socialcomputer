@@ -10,9 +10,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Arrays;
 import java.util.List;
+
+import saarland.dfki.socialanxietytrainer.classification.AnxietyLevel;
 import saarland.dfki.socialanxietytrainer.db.DbHelper;
 import saarland.dfki.socialanxietytrainer.questions.Question;
+import saarland.dfki.socialanxietytrainer.questions.QuizEvaluator;
 
 public class QuizActivity extends AppCompatActivity {
     private TextView textViewQuestion;
@@ -37,12 +42,19 @@ public class QuizActivity extends AppCompatActivity {
     private int score;
     private boolean answered;
 
+
+    private int[] scores;
+
+    private QuizEvaluator quizEvaluator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
         DbHelper dbHelper = DbHelper.getInstace(this);
+
+        scores = new int[]{0,0,0,0,0};
 
         textViewQuestion = findViewById(R.id.text_view_question);
         /* textViewScore = findViewById(R.id.text_view_score);
@@ -69,7 +81,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!answered) {
                     if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()|| rb4.isChecked()|| rb5.isChecked()) {
-
+                        processSelection();
                         showNextQuestion();
 
                     } else {
@@ -103,9 +115,70 @@ public class QuizActivity extends AppCompatActivity {
             answered = false;
             /* buttonConfirmNext.setText("Confirm"); */
         } else {
+            computeAnxietyLevels();
             finishQuiz();
         }
     }
+
+    //returns score of currently selected answer
+    private int computeAnswerScore() {
+        int tmp_score = 0;
+        if(rb1.isSelected()) {
+            tmp_score = 1;
+        }
+        else if(rb2.isSelected()) {
+            tmp_score = 2;
+        } else if (rb3.isSelected()) {
+            tmp_score = 3;
+        }
+        else if (rb4.isSelected()) {
+            tmp_score = 4;
+        }
+        else if(rb5.isSelected()){
+            tmp_score = 5;
+        }
+        return tmp_score;
+    }
+
+
+    private void processSelection() {
+        int id = questionCounter  + 1;
+        int tmp_score = computeAnswerScore();
+        if(Arrays.asList(10, 13, 15, 17, 19, 22).contains(id)) {
+            //interactions with strangers
+          scores[0] +=    tmp_score;
+        }
+        else if(Arrays.asList(3, 7, 12, 18, 25, 29).contains(id)) {
+              //Speaking in public/Talking with people in authority
+              scores[1] +=    tmp_score;
+        }
+        else if(Arrays.asList(4, 6, 20, 23, 27, 30).contains(id)) {
+            //Interactions with the opposite sex
+              scores[2] +=    tmp_score;
+        }
+        else if(Arrays.asList(1, 8, 16, 21, 24, 28).contains(id)) {
+              //Critcism and embarrassment
+              scores[3] +=    tmp_score;
+        }
+        else {
+              //Assertive expression of annoyance, disgust or displeasure
+              scores[4] +=    tmp_score;
+        }
+    }
+
+    //processes the total result
+    private void computeAnxietyLevels() {
+        QuizEvaluator quizEvaluator = new QuizEvaluator(scores,this);
+
+        if(Preferences.Companion.getGender(this) == getString(R.string.gender_name_female)) {
+            quizEvaluator.cutoff_values_female();
+        }
+        else if(Preferences.Companion.getGender(this) == getString(R.string.gender_name_male)){
+            quizEvaluator.cutoff_values_male();
+        }
+    }
+
+
 
     /* private void checkAnswer() {
         answered = true;

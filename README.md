@@ -3,7 +3,7 @@ The 'Social Anxiety Trainer' is an Android application created in the context of
 
 The app is supposed to help people with low to medium social anxiety by performing regurlary tasks. It classifies the users individual anxiety level first on the basis of a questionnaire. The tasks the user has to solve belong to five categories which are congruent with the anxiety categories in the questionnaire. The user will level up and down depending on the users performance.
 
-TODO screenshots
+<img src="img/TaskView.png" alt="drawing" width="200"/>
 
 # Usage
 The app can be used with out without supervision, but could be also used as a tool for therapists. The application relies on the honesty of the user.

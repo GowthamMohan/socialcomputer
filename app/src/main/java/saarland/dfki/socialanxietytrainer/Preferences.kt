@@ -9,7 +9,7 @@ class Preferences {
 
     companion object {
         private const val SCORE_PREFS_NAME = "score"
-        private const val ANXIETY_LEVEL_PREFS_NAME = "score"
+        private const val ANXIETY_LEVEL_PREFS_NAME = "anxiety_level"
         private const val RESTING_HEART_RATE = "resting_heart_rate"
 
 
@@ -31,17 +31,17 @@ class Preferences {
         }
 
 
-        /** resting heart rate **/
+        /** Resting heart rate **/
 
         fun getRestingHeartRate(c: Context): Int {
-            val resting_heart_rate = c.getSharedPreferences(c.getString(R.string.shared_preferences), Context.MODE_PRIVATE).getInt(RESTING_HEART_RATE, -1);
-            return resting_heart_rate
+            val restingHeartRate = c.getSharedPreferences(c.getString(R.string.shared_preferences), Context.MODE_PRIVATE).getInt(RESTING_HEART_RATE, -1);
+            return restingHeartRate
         }
 
         fun setRestingHeartRate(c: Context, resting_heart_rate: Int) {
-            val shared_preferences = c.getSharedPreferences(
+            val sharedPreferences = c.getSharedPreferences(
                     c.getString(R.string.shared_preferences), Context.MODE_PRIVATE)
-            val editor = shared_preferences.edit()
+            val editor = sharedPreferences.edit()
             editor.putInt(RESTING_HEART_RATE, resting_heart_rate)
             editor.commit()
         }

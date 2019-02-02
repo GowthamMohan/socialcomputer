@@ -37,7 +37,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     public void onBindViewHolder(@NonNull TaskViewHolder tvh, int i) {
         final Task t = tasks.get(i);
         tvh.setCategoryText(t.getCategory());
-        tvh.setLevelText(Integer.toString(t.getLevel()));
         tvh.setDescriptionText(t.getDescription());
         tvh.getLinearLayout().setOnClickListener(new View.OnClickListener() {
             @Override

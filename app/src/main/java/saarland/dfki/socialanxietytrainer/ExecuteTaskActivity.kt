@@ -18,6 +18,9 @@ import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
 import saarland.dfki.socialanxietytrainer.task.ExecuteTaskWatcher
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
+/**
+ * We disabled everything related to voice support i.e. pipes.
+ */
 class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivity() {
 
     private lateinit var category: String
@@ -25,7 +28,8 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     private var level: Int = 0
     private var id: Int = 0
 
-    private lateinit var _pipe: BasePipelineRunner
+    private var running = false
+//    private lateinit var _pipe: BasePipelineRunner
     private var _error_msg: String? = null
 
     private val classificationManager = MainActivity.classificationManager
@@ -49,25 +53,27 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         }
 
         // Setup pipeline
-        _pipe = EmoVoicePipelineRunner(this, classificationManager.getConsumer(ClassificationKind.VOICE), applicationContext)
-        _pipe.setExceptionHandler(this)
+        // Disable voice support
+//        _pipe = EmoVoicePipelineRunner(this, classificationManager.getConsumer(ClassificationKind.VOICE), applicationContext)
+//        _pipe.setExceptionHandler(this)
     }
 
     override fun onDestroy() {
-        if (_pipe.isRunning()) {
-            _pipe.terminate()
+        running = false
+//        if (_pipe.isRunning()) {
+//            _pipe.terminate()
             executeTaskWatcher.terminate()
-        }
+//        }
 
         super.onDestroy()
         Log.i("LogueWorker", "destroyed")
     }
 
-    /**
-     * Prevent activity from being destroyed once back button is pressed.
-     */
     override fun onBackPressed() {
-        moveTaskToBack(true)
+        running = false
+        // TODO
+//        moveTaskToBack(true)
+        super.onBackPressed()
     }
 
     private fun onStartStopPressed(v: View) {
@@ -77,18 +83,20 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         val am = applicationContext.getAssets()
         getAssets()
 
-        if (!_pipe.isRunning()) {
-            _pipe.start()
+        if (!running) {
+//            _pipe.start()
             executeTaskWatcher.start()
             btn.setImageResource(R.drawable.ic_stop_black)
         } else {
-            _pipe.terminate()
+//            _pipe.terminate()
             executeTaskWatcher.terminate()
             btn.setImageResource(R.drawable.ic_play_arrow_black)
 
             val intent = Intent(this@ExecuteTaskActivity, RatingActivity::class.java)
             startActivity(intent)
         }
+
+        running = !running
     }
 
     override fun notifyPipeState(running: Boolean) {
@@ -108,7 +116,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
 
     override fun handle(location: String, msg: String, t: Throwable) {
         _error_msg = msg
-        _pipe.terminate() //attempt to shut down framework
+//        _pipe.terminate() //attempt to shut down framework
         executeTaskWatcher.terminate()
 
         this.runOnUiThread {
@@ -116,21 +124,21 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         }
     }
 
-    /* onKeyUp method is for developing only!  Allows you to manually change the heartrate:
-                    press I on keybord to simulate a calm heartrate
-                    press O on keybord to simulate a slightly increased heartrate (a bit nervous or excited)
-                    press P on keybord to simulate a very high heartrate (fear)
-                    If input does not work, click on the emulator and try again
-                    IMPORTANT: Only works in activities that have this method! If you need to manipulate the heartrate in another activity,
-                    simply copy & paste this method and add it to that activity
-
-            * */
+    /**
+     * onKeyUp method is for developing only!  Allows you to manually change the heartrate:
+     *      press I on keyboard to simulate a calm heartrate
+     *      press O on keyboard to simulate a slightly increased heartrate (a bit nervous or excited)
+     *      press P on keyboard to simulate a very high heartrate (fear)
+     *      If input does not work, click on the emulator and try again
+     *      IMPORTANT: Only works in activities that have this method! If you need to manipulate the
+     *      heartrate in another activity, simply copy & paste this method and add it to that activity.
+     */
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        //don't react if no simulated watch is connected
-        if (!MainActivity.bandConnectAcitivity!!.isConnected) {
+        // Don't react if no simulated watch is connected
+        if (MainActivity.bandConnectAcitivity?.isConnected == true) {
             return super.onKeyUp(keyCode, event)
         }
-        //kept general to be able to copy it everywhere
+        // Kept general to be able to copy it everywhere
         val simulator = MainActivity.simulator
         when (keyCode) {
             KeyEvent.KEYCODE_I -> {
@@ -150,9 +158,6 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
             else -> return super.onKeyUp(keyCode, event)
         }
     }
-
-
-
 
 }
 

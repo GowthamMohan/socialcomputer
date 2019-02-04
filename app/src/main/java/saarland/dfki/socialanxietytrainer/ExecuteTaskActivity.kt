@@ -18,6 +18,9 @@ import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
 import saarland.dfki.socialanxietytrainer.task.ExecuteTaskWatcher
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
 
+/**
+ * We disabled everything related to voice support i.e. pipes.
+ */
 class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivity() {
 
     private lateinit var category: String
@@ -25,7 +28,8 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     private var level: Int = 0
     private var id: Int = 0
 
-    private lateinit var _pipe: BasePipelineRunner
+    private var running = false
+//    private lateinit var _pipe: BasePipelineRunner
     private var _error_msg: String? = null
 
     private val classificationManager = MainActivity.classificationManager
@@ -49,25 +53,27 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         }
 
         // Setup pipeline
-        _pipe = EmoVoicePipelineRunner(this, classificationManager.getConsumer(ClassificationKind.VOICE), applicationContext)
-        _pipe.setExceptionHandler(this)
+        // Disable voice support
+//        _pipe = EmoVoicePipelineRunner(this, classificationManager.getConsumer(ClassificationKind.VOICE), applicationContext)
+//        _pipe.setExceptionHandler(this)
     }
 
     override fun onDestroy() {
-        if (_pipe.isRunning()) {
-            _pipe.terminate()
+        running = false
+//        if (_pipe.isRunning()) {
+//            _pipe.terminate()
             executeTaskWatcher.terminate()
-        }
+//        }
 
         super.onDestroy()
         Log.i("LogueWorker", "destroyed")
     }
 
-    /**
-     * Prevent activity from being destroyed once back button is pressed.
-     */
     override fun onBackPressed() {
-        moveTaskToBack(true)
+        running = false
+        // TODO
+//        moveTaskToBack(true)
+        super.onBackPressed()
     }
 
     private fun onStartStopPressed(v: View) {
@@ -77,18 +83,20 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         val am = applicationContext.getAssets()
         getAssets()
 
-        if (!_pipe.isRunning()) {
-            _pipe.start()
+        if (!running) {
+//            _pipe.start()
             executeTaskWatcher.start()
             btn.setImageResource(R.drawable.ic_stop_black)
         } else {
-            _pipe.terminate()
+//            _pipe.terminate()
             executeTaskWatcher.terminate()
             btn.setImageResource(R.drawable.ic_play_arrow_black)
 
             val intent = Intent(this@ExecuteTaskActivity, RatingActivity::class.java)
             startActivity(intent)
         }
+
+        running = !running
     }
 
     override fun notifyPipeState(running: Boolean) {
@@ -108,7 +116,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
 
     override fun handle(location: String, msg: String, t: Throwable) {
         _error_msg = msg
-        _pipe.terminate() //attempt to shut down framework
+//        _pipe.terminate() //attempt to shut down framework
         executeTaskWatcher.terminate()
 
         this.runOnUiThread {

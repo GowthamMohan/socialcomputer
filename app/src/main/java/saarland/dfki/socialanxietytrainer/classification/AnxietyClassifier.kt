@@ -1,12 +1,6 @@
 package saarland.dfki.socialanxietytrainer.classification
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.support.v4.content.ContextCompat.startActivity
-import com.estimote.sdk.cloud.internal.ApiUtils.getSharedPreferences
 import saarland.dfki.socialanxietytrainer.MainActivity
-import saarland.dfki.socialanxietytrainer.RestingHeartRateActivity
 
 /**
  * More like a real-time classifier
@@ -22,17 +16,15 @@ class AnxietyClassifier(private val dataPickerStrategy: IDataPickerStrategy) : I
      * Use [weightMap_HBeat_Voice] for current classification and [weightMap_HBeat_Voice_Quest]
      * for overall classification, since there is no questionnaire while doing the task.
      */
-    private val weightMap_HBeat_Voice = hashMapOf(ClassificationKind.HEARTBEAT to 0.5,
-            ClassificationKind.VOICE to 0.5)
+    private val weightMap_HBeat_Voice = hashMapOf(ClassificationKind.HEARTBEAT to 1.0,
+            ClassificationKind.VOICE to 0.0)
     private val weightMap_HBeat_Voice_Quest = hashMapOf(ClassificationKind.HEARTBEAT to 0.4,
-            ClassificationKind.VOICE to 0.4,
-            ClassificationKind.QUESTIONNAIRE to 0.2)
+            ClassificationKind.VOICE to 0.0,
+            ClassificationKind.QUESTIONNAIRE to 0.6)
 
     private val weightMap_AnxietyLevel = hashMapOf(AnxietyLevel.LOW to 0.33,
             AnxietyLevel.MILD to 0.33,
             AnxietyLevel.HIGH to 0.33)
-
-    private  var sharedPreferences: SharedPreferences? = null
 
     override fun classifyCurrentAnxietyLevel(classifierData: List<Pair<ClassificationKind, Any>>): AnxietyLevel {
         assert(classifierData.size <= ClassificationKind.values().size)

@@ -9,26 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
-import static com.estimote.sdk.EstimoteSDK.getApplicationContext;
 
 
 public class TutorialFragment extends Fragment {
 
-
-    public TutorialFragment() {
-        // Required empty public constructor
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

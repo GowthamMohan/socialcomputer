@@ -39,6 +39,7 @@
       "id": 7,
       "content": "The “Social-Anxiety-Trainer” is an Android application created in the context of the seminar “How to build a social computer?” at the DFKI (Deutsches Forschungszentrum für Künstliche Intelligenz).This App is supposed to help people with low to medium social anxiety. It classifies the users individual anxiety level first on the basis of a questionnaire. The tasks the user has to solve belong to five categories which are congruent with the anxiety categories in the questionnaire. The user will level up and down depending on the users performance.Add to monitoring:The Social Anxiety trainer will also show the progress with a graph  by means of the data."
     }
+    ]
 
 
 }

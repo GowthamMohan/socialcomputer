@@ -32,10 +32,16 @@ public class WalkthroughActivity extends AppCompatActivity {
 
 
     private void startQuiz() {
-        //select gender first, this activity starts the quiz afterwards
-        Intent intent = new Intent(this, SelectGenderActivity.class);
+        Intent intent = new Intent(this,QuizActivity.class);
         startActivity(intent);
     }
+
+    private void startTutorial() {
+        Intent intent = new Intent(this,TutorialActivity.class);
+        startActivity(intent);
+
+    }
+
     public void onCheckboxClicked(View view) {
 
         boolean checked = ((CheckBox) view).isChecked();
@@ -44,7 +50,7 @@ public class WalkthroughActivity extends AppCompatActivity {
             buttonStartQuiz.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startQuiz();
+                    startTutorial();
                 }
             });
         }

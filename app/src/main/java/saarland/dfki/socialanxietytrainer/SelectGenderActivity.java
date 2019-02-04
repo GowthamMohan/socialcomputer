@@ -47,5 +47,8 @@ public class SelectGenderActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        //we don't go back here
+    }
 }

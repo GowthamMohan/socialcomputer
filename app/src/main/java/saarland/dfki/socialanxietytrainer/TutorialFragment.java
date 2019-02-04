@@ -35,7 +35,7 @@ public class TutorialFragment extends Fragment {
         TextView tutorialTextView = (TextView) view.findViewById(R.id.tutorial_text);
         String text = getArguments().getString("current_text");
         int index = getArguments().getInt("index");
-        tutorialTextView.setText((index + 1) + ".\n\n" + text);
+        tutorialTextView.setText((index + 1) + "/8 \n\n" + text);
 
 
 

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import saarland.dfki.socialanxietytrainer.tutorial.TutorialPagerAdapter;
 
+//source https://www.youtube.com/watch?v=9phSvgqpNtE
 
 public class TutorialActivity extends FragmentActivity {
 

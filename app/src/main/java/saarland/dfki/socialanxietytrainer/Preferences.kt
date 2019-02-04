@@ -42,7 +42,7 @@ class Preferences {
         /** Resting heart rate **/
 
         fun getRestingHeartRate(c: Context): Int {
-            val restingHeartRate = c.getSharedPreferences(c.getString(R.string.shared_preferences), Context.MODE_PRIVATE).getInt(RESTING_HEART_RATE, -1);
+            val restingHeartRate = c.getSharedPreferences(c.getString(R.string.shared_preferences), Context.MODE_PRIVATE).getInt(RESTING_HEART_RATE_NAME, -1);
             return restingHeartRate
         }
 
@@ -50,7 +50,7 @@ class Preferences {
             val sharedPreferences = c.getSharedPreferences(
                     c.getString(R.string.shared_preferences), Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
-            editor.putInt(RESTING_HEART_RATE, resting_heart_rate)
+            editor.putInt(RESTING_HEART_RATE_NAME, resting_heart_rate)
             editor.commit()
         }
 

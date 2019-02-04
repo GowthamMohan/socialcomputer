@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        checkGenderSelection()
+
         //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
         taskSetup.execute()
 

@@ -32,7 +32,8 @@ public class WalkthroughActivity extends AppCompatActivity {
 
 
     private void startQuiz() {
-        Intent intent = new Intent(this, QuizActivity.class);
+        //select gender first, this activity starts the quiz afterwards
+        Intent intent = new Intent(this, SelectGenderActivity.class);
         startActivity(intent);
     }
     public void onCheckboxClicked(View view) {

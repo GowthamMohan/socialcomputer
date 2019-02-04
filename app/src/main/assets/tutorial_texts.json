@@ -1,0 +1,44 @@
+{
+  "texts": [
+    {
+      "id": 0,
+      "content": "Welcome to the Social Anxiety Trainer! We are pleased that you have decided to use this App to challenge yourself for your personal growth."
+
+    },
+    {
+      "id": 1,
+      "content": "Now you have the possibility to confront yourself with tasks and situations that might be kind of uncomfortable for you at the moment. When you use this app regularly you will see how you make progress step by step and it will be much easier for you to handle your everyday life."
+
+    },
+    {
+      "id": 2,
+      "content": "First, we give you a questionnaire to see what your strengths are and where you can still improve. Please answer honestly since you are the person who will benefit from it so we can focus on your individual needs."
+
+    },
+    {
+      "id": 3,
+      "content": "After you filled out the questionnaire you can get started right away! We will challenge you with tasks depending on the answers you gave us. Don’t worry, we start with the easy ones and try to increase the difficulty very slowly. At some point you will accomplish things you may not have thought about."
+
+    },
+    {
+      "id": 4,
+      "content": "While performing the task make sure you are connected to your smartwatch and a microphone. Every time you are given a task to perform, click the start and stop button respectively. It will automatically record your heart rate as well as your voice. We will give you updates to show your progress."
+
+    },
+
+    {
+      "id": 5,
+      "content": "If you are in a situation where you feel very uncomfortable and overwhelmed with a task, you have the possibility to call an emergency contact by clicking the “help” button. It does not matter if you can not solve a task the first time. If we see that something is too hard for you, we will adjust the difficulty of the tasks. It is still important that you try your best.If you are working with a therapist this app gives you the possibility to export data so you can analyse your progress together."
+    },
+    {
+      "id": 6,
+      "content": "So let’s start and have fun along the way! If you are comfortable with the above read conditions please click the checkbox below to proceed further."
+    },
+
+    {
+      "id": 7,
+      "content": "The “Social-Anxiety-Trainer” is an Android application created in the context of the seminar “How to build a social computer?” at the DFKI (Deutsches Forschungszentrum für Künstliche Intelligenz).This App is supposed to help people with low to medium social anxiety. It classifies the users individual anxiety level first on the basis of a questionnaire. The tasks the user has to solve belong to five categories which are congruent with the anxiety categories in the questionnaire. The user will level up and down depending on the users performance.Add to monitoring:The Social Anxiety trainer will also show the progress with a graph  by means of the data."
+    }
+
+
+}

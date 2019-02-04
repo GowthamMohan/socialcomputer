@@ -27,13 +27,14 @@ public class SelectGenderActivity extends AppCompatActivity {
     public void saveGender(View v) {
         if(radioGroup.getCheckedRadioButtonId()== R.id.rb_female){
             Preferences.Companion.setGender(this,getString(R.string.gender_name_female));
-            Intent intent = new Intent(SelectGenderActivity.this, MainActivity.class);
+            Intent intent = new Intent(SelectGenderActivity.this, QuizActivity.class);
             startActivity(intent);
         }
         else  if (radioGroup.getCheckedRadioButtonId() == R.id.rb_male){
             Preferences.Companion.setGender(this,getString(R.string.gender_name_male));
-            Intent intent = new Intent(SelectGenderActivity.this, MainActivity.class);
+            Intent intent = new Intent(SelectGenderActivity.this, QuizActivity.class);
             startActivity(intent);
+            
         }
         else {
 

@@ -52,6 +52,8 @@
             android:label="Get Your Resting Heart Rate"></activity>
         <activity android:name=".RatingActivity"
             android:label="Rate Your Comfortableness"></activity>
+        <activity android:name=".TutorialActivity"
+            android:label="Tutorial"></activity>
         <activity android:name=".ShareActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".Help" />

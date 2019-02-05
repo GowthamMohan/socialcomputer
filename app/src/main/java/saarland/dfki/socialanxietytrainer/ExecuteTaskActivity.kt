@@ -17,6 +17,7 @@ import saarland.dfki.socialanxietytrainer.audioanalysis.IPipeLineExecutor
 import saarland.dfki.socialanxietytrainer.classification.ClassificationKind
 import saarland.dfki.socialanxietytrainer.task.ExecuteTaskWatcher
 import saarland.dfki.socialanxietytrainer.heartrate.SimulationType
+import kotlin.math.max
 
 /**
  * We disabled everything related to voice support i.e. pipes.
@@ -27,9 +28,10 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
     private lateinit var description: String
     private var level: Int = 0
     private var id: Int = 0
+    private var category_id = 0
 
     private var running = false
-//    private lateinit var _pipe: BasePipelineRunner
+    //    private lateinit var _pipe: BasePipelineRunner
     private var _error_msg: String? = null
 
     private val classificationManager = MainActivity.classificationManager
@@ -44,6 +46,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         this.description = intent.getStringExtra("description")
         this.level = intent.getStringExtra("level").toInt()
         this.id = intent.getStringExtra("id").toInt()
+        this.category_id = intent.getIntExtra("category_id", 0)
 
         findViewById<TextView>(R.id.textView_task_category).text = "Category: ${this.category}"
         findViewById<TextView>(R.id.textView_task_description).text = "Description: ${this.description}"
@@ -62,7 +65,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         running = false
 //        if (_pipe.isRunning()) {
 //            _pipe.terminate()
-            executeTaskWatcher.terminate()
+        executeTaskWatcher.terminate()
 //        }
 
         super.onDestroy()
@@ -73,7 +76,10 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         running = false
         // TODO
 //        moveTaskToBack(true)
+        levelDown()
         super.onBackPressed()
+
+
     }
 
     private fun onStartStopPressed(v: View) {
@@ -93,6 +99,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
             btn.setImageResource(R.drawable.ic_play_arrow_black)
 
             val intent = Intent(this@ExecuteTaskActivity, RatingActivity::class.java)
+            intent.putExtra("category_id", category_id)
             startActivity(intent)
         }
 
@@ -120,7 +127,7 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         executeTaskWatcher.terminate()
 
         this.runOnUiThread {
-            Toast.makeText(applicationContext,"Exception in Pipeline\n$msg", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Exception in Pipeline\n$msg", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -159,5 +166,30 @@ class ExecuteTaskActivity : IPipeLineExecutor, ExceptionHandler, AppCompatActivi
         }
     }
 
+    private fun levelDown()
+    {
+        var count = Preferences.getStreakNotCompleted(this)
+        if (count == 1 ) {
+
+
+
+            when (intent.getIntExtra("category_id", 0)) {
+                0 -> Preferences.setLevelC1(this, max(Preferences.getLevelC1(this) - 1,1))
+                1 -> Preferences.setLevelC2(this, max(Preferences.getLevelC2(this) -1,1 ))
+                2 -> Preferences.setLevelC3(this, max(Preferences.getLevelC3(this) - 1 ,1))
+                3 -> Preferences.setLevelC4(this, max(Preferences.getLevelC4(this) - 1 ,1))
+                4 -> Preferences.setLevelC5(this, max (Preferences.getLevelC5(this) - 1,1))
+                else -> {
+                }
+            }
+
+
+        }
+
+        count = count++ % 2
+        Preferences.setStreakNotCompleted(this, count)
+
+
+    }
 }
 

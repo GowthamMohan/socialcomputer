@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val classificationManager = ClassificationManager()
         var dbHelper: DbHelper? = null
         var bandConnectAcitivity: BandConnectAcitivity? = null
+        var context: Context? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
         taskSetup.execute()
-
+        context = applicationContext;
         constraintLayout = findViewById(R.id.layout)
 
         val toggle = ActionBarDrawerToggle(

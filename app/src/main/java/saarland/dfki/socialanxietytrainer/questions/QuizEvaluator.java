@@ -75,10 +75,10 @@ public class QuizEvaluator {
     }
     public void cutoff_values_male() {
         //category 1: Talking with Strangers
-        if(scores[0] <= 11) {
+        if(scores[0] <= 13) {
             Preferences.Companion.setLevelC1(MainActivity.Companion.getContext(),3 -1);
         }
-        else if( scores[0] <= 18) {
+        else if( scores[0] <= 20) {
             Preferences.Companion.setLevelC1(MainActivity.Companion.getContext(),2 -1);
         }
         else {
@@ -86,10 +86,10 @@ public class QuizEvaluator {
         }
 
         //category 2: Speaking in public/talking with people in authority
-        if(scores[1] <= 16) {
+        if(scores[1] <= 14) {
             Preferences.Companion.setLevelC2(MainActivity.Companion.getContext(),3 -1);
         }
-        else if(scores[1] <= 23) {
+        else if(scores[1] <= 21) {
             Preferences.Companion.setLevelC2(MainActivity.Companion.getContext(),2 -1);
         }
         else {
@@ -97,10 +97,10 @@ public class QuizEvaluator {
         }
 
         //category 3:Interactions with the opposite sex
-        if( scores[2] <= 17) {
+        if( scores[2] <= 14) {
             Preferences.Companion.setLevelC3(MainActivity.Companion.getContext(),3 -1);
         }
-        else if( scores[2] <= 24) {
+        else if( scores[2] <= 21) {
             Preferences.Companion.setLevelC3(MainActivity.Companion.getContext(),2 -1);
         }
         else {
@@ -108,20 +108,20 @@ public class QuizEvaluator {
         }
 
         //category 4: Criticism and embarrassment
-        if(scores[3] <= 17) {
+        if(scores[3] <= 15) {
             Preferences.Companion.setLevelC4(MainActivity.Companion.getContext(),3 -1);
         }
-        else if( scores[3] <= 24) {
+        else if( scores[3] <= 22) {
             Preferences.Companion.setLevelC4(MainActivity.Companion.getContext(),2 -1);
         }
         else {
             Preferences.Companion.setLevelC4(MainActivity.Companion.getContext(),1);
         }
         //category 5: Assertive expression of annoyance, disgust or displeasure
-        if( scores[4] <= 17) {
+        if( scores[4] <= 15) {
             Preferences.Companion.setLevelC5(MainActivity.Companion.getContext(),3 -1);
         }
-        else if( scores[4] <= 24) {
+        else if( scores[4] <= 22) {
             Preferences.Companion.setLevelC5(MainActivity.Companion.getContext(),2 -1);
         }
         else {

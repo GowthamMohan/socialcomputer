@@ -168,7 +168,7 @@ public class QuizActivity extends AppCompatActivity {
 
     //processes the total result
     private void computeAnxietyLevels() {
-        QuizEvaluator quizEvaluator = new QuizEvaluator(scores,this);
+        quizEvaluator = new QuizEvaluator(scores,this);
 
         if(Preferences.Companion.getGender(this) == getString(R.string.gender_name_female)) {
             quizEvaluator.cutoff_values_female();

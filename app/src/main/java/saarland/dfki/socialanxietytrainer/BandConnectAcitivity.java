@@ -81,7 +81,7 @@ public class BandConnectAcitivity extends AppCompatActivity {
         if (!connected) {
             BandConnectTask task = new BandConnectTask(this);
             task.execute();
-            requestRestingHeartRate();
+           // requestRestingHeartRate();
         }
         else {
             runOnUiThread(new Runnable() {

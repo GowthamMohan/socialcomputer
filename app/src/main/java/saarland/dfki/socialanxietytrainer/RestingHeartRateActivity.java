@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +27,14 @@ public class RestingHeartRateActivity extends AppCompatActivity {
     private int restingHeartRate;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private boolean tracking;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resting_heart_rate);
-
+        tracking = false;
         bandConnectAcitivity = MainActivity.Companion.getBandConnectAcitivity();
         //----------------------------------------------------------------------------------------------------------------------------
         if(bandConnectAcitivity == null || !bandConnectAcitivity.isConnected()) {
@@ -43,26 +48,32 @@ public class RestingHeartRateActivity extends AppCompatActivity {
 
     //onClick
     public void trackRestingHeartRate(View v) {
-        //duration: 60s
-        GetRestingHeartRateTask getRestingHeartRateTask = new GetRestingHeartRateTask(30000);
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Integer> result = executorService.submit(getRestingHeartRateTask);
-        try{
-            int tmp = result.get();
-            if(tmp < 0) {
-                showErrorMessage(tmp);
+        if(!tracking) {
+            tracking = true;
+
+            //ImageButton imageButton =   findViewById(R.id.button_start_stop_resting_hr);
+            //imageButton.setBackgroundResource(R.drawable.ic_stop_black);
+
+            //duration: 30s
+            GetRestingHeartRateTask getRestingHeartRateTask = new GetRestingHeartRateTask(30000);
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            Future<Integer> result = executorService.submit(getRestingHeartRateTask);
+            try {
+                int tmp = result.get();
+                if (tmp < 0) {
+                    showErrorMessage(tmp);
+                } else {
+                    processResult(tmp);
+                }
+            } catch (InterruptedException e) {
+                showErrorMessage(-2);
+                executorService.shutdown();
+            } catch (ExecutionException e) {
+                showErrorMessage(-2);
+                executorService.shutdown();
             }
-            else {
-                processResult(tmp);
-            }
-        }catch (InterruptedException e){
-            showErrorMessage(-2);
-            executorService.shutdown();
-        }catch (ExecutionException e){
-            showErrorMessage(-2);
             executorService.shutdown();
         }
-        executorService.shutdown();
 
     }
 

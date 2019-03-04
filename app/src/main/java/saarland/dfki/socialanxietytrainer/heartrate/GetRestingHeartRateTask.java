@@ -29,6 +29,8 @@ public class GetRestingHeartRateTask implements Callable<Integer> {
     public Integer call() {
         while(System.currentTimeMillis() - start_time <= duration) {
             if(bandConnectAcitivity.isConnected()){
+
+
                 added_values += bandConnectAcitivity.getHeartrate();
                 counter++;
                 try {

@@ -3,6 +3,7 @@ package saarland.dfki.socialanxietytrainer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -51,8 +52,9 @@ public class RestingHeartRateActivity extends AppCompatActivity {
         if(!tracking) {
             tracking = true;
 
-            //ImageButton imageButton =   findViewById(R.id.button_start_stop_resting_hr);
-            //imageButton.setBackgroundResource(R.drawable.ic_stop_black);
+            FloatingActionButton button =    findViewById(R.id.button_start_stop_resting_hr);
+            button.setImageResource(R.drawable.ic_stop_black);
+
 
             //duration: 30s
             GetRestingHeartRateTask getRestingHeartRateTask = new GetRestingHeartRateTask(30000);

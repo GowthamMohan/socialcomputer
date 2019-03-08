@@ -1,11 +1,6 @@
 package saarland.dfki.socialanxietytrainer.heartrate;
 
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.concurrent.Callable;
-
 import saarland.dfki.socialanxietytrainer.BandConnectAcitivity;
 import saarland.dfki.socialanxietytrainer.MainActivity;
 

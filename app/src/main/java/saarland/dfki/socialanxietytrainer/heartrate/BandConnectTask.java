@@ -61,6 +61,8 @@ public class BandConnectTask extends AsyncTask<Void, Void, Void> {
                             }
                         });
 
+                        activity.requestRestingHeartRate();
+
                     }
                     else {
                         //this case should not happen due to exception handling. Delete if verified to be unnecessary

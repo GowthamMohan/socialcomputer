@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import saarland.dfki.socialanxietytrainer.MainActivity;
 import saarland.dfki.socialanxietytrainer.Preferences;
@@ -24,8 +26,10 @@ public class SetupAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String tasksStr;
     private Activity activity;
-    private TaskSet currentSelection;
+    private List<Task> currentSelection;
     private TaskManager taskManager;
+
+
 
     public SetupAsyncTask(Activity activity) {
         this.activity = activity;
@@ -45,11 +49,11 @@ public class SetupAsyncTask extends AsyncTask<Void, Void, Void> {
             tasksStr = str.toString();
             br.close();
 
-            TaskSet tasks = TaskSet.fromJson(tasksStr);
-            taskManager = new TaskManager(tasks);
+            TaskSet taskSet = TaskSet.fromJson(tasksStr);
+            taskManager = new TaskManager(taskSet);
             ((MainActivity) activity).setTaskManager(taskManager); //this cast is safe
-            AnxietyLevel level = Preferences.Companion.getAnxietyLevel(activity);
-            currentSelection = taskManager.select(level);
+
+           currentSelection = taskManager.getSelection();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

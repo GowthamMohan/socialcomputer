@@ -12,7 +12,7 @@
         android:layout_margin="10dp"
         android:padding="10dp"
         android:text="@string/resting_hr"
-        app:layout_constraintBottom_toTopOf="@+id/button_start_stop_task"
+        app:layout_constraintBottom_toTopOf="@+id/button_start_stop_resting_hr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
     </TextView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/button_start_stop_task"
+        android:id="@+id/button_start_stop_resting_hr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -43,6 +43,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_start_stop_task" />
+        app:layout_constraintTop_toBottomOf="@+id/button_start_stop_resting_hr" />
 
 </android.support.constraint.ConstraintLayout>

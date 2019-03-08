@@ -72,6 +72,7 @@ public class TaskSet {
         return new TaskSet(collect);
     }
 
+
     public TaskSet getTasksSelection(AnxietyLevel level) {
         TaskSet tasksLevel = getTasksFilteredByAnxietyLevel(level);
         Set<String> categories = getCategories(tasksLevel);
@@ -79,5 +80,6 @@ public class TaskSet {
                 .map(c -> getRandomTaskFromCategory(tasksLevel, c)).collect(Collectors.toList());
         return new TaskSet(randomTasks);
     }
+
 
 }

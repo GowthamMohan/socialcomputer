@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val classificationManager = ClassificationManager()
         var dbHelper: DbHelper? = null
         var bandConnectAcitivity: BandConnectAcitivity? = null
+        var context: Context? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //creates the list of tasks. the logic of the former button execute_task is in the class TaskAdapter
         taskSetup.execute()
-
+        context = applicationContext;
         constraintLayout = findViewById(R.id.layout)
 
         val toggle = ActionBarDrawerToggle(
@@ -69,6 +70,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+
 
         dbHelper = DbHelper.getInstace(this)
 
@@ -102,6 +105,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            else -> return super.onOptionsItemSelected(item)
 //        }
 //    }
+
+    private fun checkGenderSelection() {
+        if(Preferences.Companion.getGender(this) == "None") {
+            val intent = Intent(this@MainActivity, SelectGenderActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
     private fun setupNotifications() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

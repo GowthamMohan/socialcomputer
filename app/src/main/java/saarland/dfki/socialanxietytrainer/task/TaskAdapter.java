@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import saarland.dfki.socialanxietytrainer.ExecuteTaskActivity;
 import saarland.dfki.socialanxietytrainer.R;
 
@@ -17,10 +20,10 @@ import saarland.dfki.socialanxietytrainer.R;
  */
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
-    private TaskSet tasks;
+    private List<Task> tasks;
     private Activity activity;
 
-    public TaskAdapter(TaskSet tasks, Activity a) {
+    public TaskAdapter(List<Task> tasks, Activity a) {
         this.tasks = tasks;
         this.activity = a;
     }
@@ -46,6 +49,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 i.putExtra("description", t.getDescription());
                 i.putExtra("level", "" + t.getLevel());
                 i.putExtra("id", "" + t.getId());
+                i.putExtra("category_id",t.getCategoryID());
                 activity.startActivity(i);
             }
         });
@@ -53,6 +57,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     @Override
     public int getItemCount() {
-        return tasks.getSize();
+        return tasks.size();
     }
 }
